@@ -1,13 +1,24 @@
 const express = require("express");
 const routes = require("./routes");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+
+dotenv.config({ path: "./config/env/config.env" });
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res, next) => {
+app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
 app.use("/api", routes);
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+app.listen(PORT, () =>
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() =>
+      console.log(`Server is running on port ${PORT} | ${process.env.NODE_ENV}`)
+    )
+    .catch((err) => console.log(err))
+);

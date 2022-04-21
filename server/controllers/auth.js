@@ -1,4 +1,4 @@
-const register = (req, res) => {
+const register = async (req, res) => {
   res.send("Auth register");
 };
 

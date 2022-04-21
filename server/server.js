@@ -2,6 +2,7 @@ const express = require("express");
 const routes = require("./routes");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const customErrorHandler = require("./middlewares/error/customErrorHandler");
 
 dotenv.config({ path: "./config/env/config.env" });
 
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 app.use("/api", routes);
+app.use(customErrorHandler);
 
 app.listen(PORT, () =>
   mongoose

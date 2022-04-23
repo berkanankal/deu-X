@@ -7,6 +7,7 @@ import Things from "./components/Things";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
+
 import Container from "@mui/material/Container";
 import { Routes, Route } from "react-router-dom";
 

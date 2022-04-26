@@ -1,9 +1,9 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import Card from "../Card";
-import List from "../List";
+import Card from "../../Card";
+import List from "../../List";
 
-const Home = () => {
+const UserHome = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={3}>
@@ -35,4 +35,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default UserHome;

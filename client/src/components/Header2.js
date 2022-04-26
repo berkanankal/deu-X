@@ -25,7 +25,12 @@ const pages = [
   { name: "Kitap", path: "/kitaplar" },
   { name: "Not", path: "/notlar" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  { name: "Profile", path: "/" },
+  { name: "Account", path: "/" },
+  { name: "Dashboard", path: "/dashboard" },
+  { name: "Logout", path: "/" },
+];
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -186,8 +191,13 @@ const Header2 = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem
+                  component={Link}
+                  to={setting.path}
+                  key={setting.name}
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>

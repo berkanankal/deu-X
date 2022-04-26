@@ -1,30 +1,35 @@
 import React from "react";
 import "./App.css";
-import Header2 from "./components/Header2";
-import Notes from "./components/Notes";
-import Books from "./components/Books";
-import Things from "./components/Things";
-import Home from "./components/Home";
+import User from "./components/User";
+import Dashboard from "./components/Admin/Dashboard";
+import Notes from "./components/User/Notes";
+import Books from "./components/User/Books";
+import Things from "./components/User/Things";
+import UserHome from "./components/User/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import DashboardHome from "./components/Admin/Dashboard/Home";
+import University from "./components/Admin/Dashboard/University";
 
-import Container from "@mui/material/Container";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
     <>
-      <Header2 />
-      <Container sx={{ mt: 5 }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/notlar" element={<Notes />} />
-          <Route path="/kitaplar" element={<Books />} />
-          <Route path="/esyalar" element={<Things />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </Container>
+      <Routes>
+        <Route path="/" element={<User />}>
+          <Route index element={<UserHome />} />
+          <Route path="notlar" element={<Notes />} />
+          <Route path="kitaplar" element={<Books />} />
+          <Route path="esyalar" element={<Things />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+        <Route path="dashboard" element={<Dashboard />}>
+          <Route index element={<DashboardHome />} />
+          <Route path="university" element={<University />} />
+        </Route>
+      </Routes>
     </>
   );
 };

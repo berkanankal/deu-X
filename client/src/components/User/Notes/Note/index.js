@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 
-import Ceza from "../../../images/ceza.jpg";
+import Ceza from "../../../../images/ceza.jpg";
 
 const Note = () => {
   return (

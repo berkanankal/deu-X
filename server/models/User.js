@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var bcrypt = require("bcryptjs");
 
 const { Schema } = mongoose;
 
@@ -6,6 +7,10 @@ const UserSchema = new Schema({
   name: {
     type: String,
     required: [true, "Name is required"],
+  },
+  surname: {
+    type: String,
+    required: [true, "Surname is required"],
   },
   email: {
     type: String,
@@ -39,6 +44,17 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+});
+
+UserSchema.pre("save", function (next) {
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next(err);
+    bcrypt.hash(this.password, salt, (err, hash) => {
+      if (err) return next(err);
+      this.password = hash;
+      return next();
+    });
+  });
 });
 
 module.exports = mongoose.model("User", UserSchema);

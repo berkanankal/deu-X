@@ -12,4 +12,12 @@ const register = asyncHandler(async (req, res, next) => {
   });
 });
 
-module.exports = { register };
+const deleteAllUsers = async (req, res) => {
+  await User.deleteMany();
+
+  res.status(200).json({
+    message: "All users deleted",
+  });
+};
+
+module.exports = { register, deleteAllUsers };

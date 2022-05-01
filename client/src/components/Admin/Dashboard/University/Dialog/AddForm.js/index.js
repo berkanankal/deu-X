@@ -13,9 +13,19 @@ import { useSelector, useDispatch } from "react-redux";
 const AddForm = () => {
   const { cities } = useSelector((state) => state.cities);
 
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [formData, setFormData] = useState({
+    selectedCity: "",
+    selectedDistrict: "",
+  });
 
-  console.log(selectedCity);
+  console.log(formData);
+
+  const onChangeSelectInput = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <Box component="form">
@@ -28,8 +38,9 @@ const AddForm = () => {
           <Select
             labelId="demo-simple-select-label"
             label="Bölüm"
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.target.value)}
+            name="selectedCity"
+            value={formData.selectedCity}
+            onChange={onChangeSelectInput}
           >
             {cities.map((city) => (
               <MenuItem key={city.id} value={city.id}>
@@ -38,15 +49,29 @@ const AddForm = () => {
             ))}
           </Select>
         </FormControl>
-        <FormControl fullWidth disabled sx={{ mb: 3 }}>
+        <FormControl
+          fullWidth
+          disabled={formData.selectedCity === ""}
+          sx={{ mb: 3 }}
+        >
           <InputLabel id="demo-simple-select-label">Bölge</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Bölüm"
-            value={1}
+            name="selectedDistrict"
+            value={formData.selectedDistrict}
+            onChange={onChangeSelectInput}
           >
-            <MenuItem value={1}>Buca</MenuItem>
+            {cities.map(
+              (city) =>
+                city.id === formData.selectedCity &&
+                city.districts.map((district) => (
+                  <MenuItem key={district.id} value={district.id}>
+                    {district.name}
+                  </MenuItem>
+                ))
+            )}
           </Select>
         </FormControl>
       </FormGroup>

@@ -7,14 +7,20 @@ export const citiesSlice = createSlice({
       {
         id: 1,
         name: "İzmir",
-      },
-      {
-        id: 2,
-        name: "Aydın",
-      },
-      {
-        id: 3,
-        name: "İstanbul",
+        districts: [
+          {
+            id: 1,
+            name: "Alsancak",
+          },
+          {
+            id: 2,
+            name: "Buca",
+          },
+          {
+            id: 3,
+            name: "Bornova",
+          },
+        ],
       },
     ],
   },

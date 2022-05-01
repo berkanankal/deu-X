@@ -10,12 +10,15 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import DashboardHome from "./components/Admin/Dashboard/Home";
 import University from "./components/Admin/Dashboard/University";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
     <>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<User />}>
           <Route index element={<UserHome />} />

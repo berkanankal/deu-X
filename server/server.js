@@ -3,16 +3,14 @@ const routes = require("./routes");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const customErrorHandler = require("./middlewares/error/customErrorHandler");
+const cors = require("cors");
 
 dotenv.config({ path: "./config/env/config.env" });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
+app.use(cors());
 app.use(express.json());
 app.use("/api", routes);
 app.use(customErrorHandler);

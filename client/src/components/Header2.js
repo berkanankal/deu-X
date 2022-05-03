@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import {
   Box,
   AppBar,
@@ -15,6 +15,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
+import { useSelector } from "react-redux";
 
 const pages = [
   {
@@ -65,9 +66,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header2 = () => {
+  const user = useSelector((state) => state.auth.user);
+
   const classes = useStyles();
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -149,59 +152,63 @@ const Header2 = () => {
             ))}
           </Box>
 
-          <Box className={classes.loginRegister}>
-            <Button
-              component={Link}
-              to="/login"
-              onClick={handleCloseNavMenu}
-              color="inherit"
-            >
-              Giriş Yap
-            </Button>
-            <Button
-              component={Link}
-              to="/register"
-              onClick={handleCloseNavMenu}
-              color="inherit"
-            >
-              Kayıt Ol
-            </Button>
-          </Box>
+          {!user && (
+            <Box className={classes.loginRegister}>
+              <Button
+                component={Link}
+                to="/login"
+                onClick={handleCloseNavMenu}
+                color="inherit"
+              >
+                Giriş Yap
+              </Button>
+              <Button
+                component={Link}
+                to="/register"
+                onClick={handleCloseNavMenu}
+                color="inherit"
+              >
+                Kayıt Ol
+              </Button>
+            </Box>
+          )}
 
-          <Box className={classes.profile}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  component={Link}
-                  to={setting.path}
-                  key={setting.name}
-                  onClick={handleCloseUserMenu}
-                >
-                  <Typography textAlign="center">{setting.name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {user && (
+            <Box className={classes.profile}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    component={Link}
+                    to={setting.path}
+                    key={setting.name}
+                    onClick={handleCloseUserMenu}
+                  >
+                    <Typography textAlign="center">{setting.name}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import User from "./components/User";
 import Dashboard from "./components/Admin/Dashboard";
@@ -12,10 +12,18 @@ import DashboardHome from "./components/Admin/Dashboard/Home";
 import University from "./components/Admin/Dashboard/University";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "./redux/authSlice";
 
 const App = () => {
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setUser());
+  }, [dispatch]);
+
   return (
     <>
       <ToastContainer />
@@ -25,7 +33,10 @@ const App = () => {
           <Route path="notlar" element={<Notes />} />
           <Route path="kitaplar" element={<Books />} />
           <Route path="esyalar" element={<Things />} />
-          <Route path="login" element={<Login />} />
+          <Route
+            path="login"
+            element={!user ? <Login /> : <Navigate to="/" />}
+          />
           <Route path="register" element={<Register />} />
         </Route>
         <Route path="dashboard" element={<Dashboard />}>

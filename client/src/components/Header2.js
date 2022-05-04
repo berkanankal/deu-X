@@ -15,7 +15,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/authSlice";
 
 const pages = [
   {
@@ -25,12 +26,6 @@ const pages = [
   { name: "Eşya", path: "/esyalar" },
   { name: "Kitap", path: "/kitaplar" },
   { name: "Not", path: "/notlar" },
-];
-const settings = [
-  { name: "Profile", path: "/" },
-  { name: "Account", path: "/" },
-  { name: "Dashboard", path: "/dashboard" },
-  { name: "Logout", path: "/" },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -67,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header2 = () => {
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
 
   const classes = useStyles();
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -85,6 +81,11 @@ const Header2 = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleCloseUserMenu();
   };
 
   return (
@@ -177,7 +178,7 @@ const Header2 = () => {
             <Box className={classes.profile}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar>{user.name.charAt(0).toUpperCase()}</Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
@@ -196,16 +197,22 @@ const Header2 = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem
-                    component={Link}
-                    to={setting.path}
-                    key={setting.name}
-                    onClick={handleCloseUserMenu}
-                  >
-                    <Typography textAlign="center">{setting.name}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem component={Link} to="/" onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Profile</Typography>
+                </MenuItem>
+                <MenuItem component={Link} to="/" onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Account</Typography>
+                </MenuItem>
+                <MenuItem
+                  component={Link}
+                  to="/dashboard"
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography textAlign="center">Dashboard</Typography>
+                </MenuItem>
+                <MenuItem component={Link} to="/" onClick={handleLogout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           )}

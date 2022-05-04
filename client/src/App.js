@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import User from "./components/User";
 import Dashboard from "./components/Admin/Dashboard";
@@ -37,7 +37,10 @@ const App = () => {
             path="login"
             element={!user ? <Login /> : <Navigate to="/" />}
           />
-          <Route path="register" element={<Register />} />
+          <Route
+            path="register"
+            element={!user ? <Register /> : <Navigate to="/" />}
+          />
         </Route>
         <Route path="dashboard" element={<Dashboard />}>
           <Route index element={<DashboardHome />} />

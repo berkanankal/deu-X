@@ -11,9 +11,13 @@ export const authSlice = createSlice({
         state.user = JSON.parse(localStorage.getItem("user"));
       }
     },
+    logout: (state) => {
+      localStorage.removeItem("user");
+      state.user = null;
+    },
   },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;

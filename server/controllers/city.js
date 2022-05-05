@@ -2,7 +2,9 @@ const City = require("../models/City");
 const asyncHandler = require("express-async-handler");
 
 const getAllCities = asyncHandler(async (req, res) => {
-  const cities = await City.find();
+  const cities = await City.find().populate({
+    path: "universities",
+  });
 
   return res.status(200).json({
     success: "true",
@@ -10,4 +12,12 @@ const getAllCities = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { getAllCities };
+const addCity = asyncHandler(async (req, res) => {
+  const city = await City.create(req.body);
+  return res.status(201).json({
+    success: "true",
+    data: city,
+  });
+});
+
+module.exports = { getAllCities, addCity };

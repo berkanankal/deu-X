@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   TextField,
   FormControlLabel,
@@ -6,7 +5,6 @@ import {
   Button,
   Box,
   Grid,
-  Link,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -15,6 +13,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../redux/authSlice";
+import { Link } from "react-router-dom";
 
 let loginSchema = yup.object().shape({
   email: yup
@@ -103,14 +102,10 @@ const LoginForm = () => {
       </Button>
       <Grid container>
         <Grid item xs>
-          <Link href="#" variant="body2">
-            Parolanızı mı unuttunuz?
-          </Link>
+          <Link to="/">Parolanızı mı unuttunuz?</Link>
         </Grid>
         <Grid item>
-          <Link href="#" variant="body2">
-            Hesabınız yok mu? Kayıt olun
-          </Link>
+          <Link to="/register">Hesabınız yok mu? Kayıt olun</Link>
         </Grid>
       </Grid>
     </Box>

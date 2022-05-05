@@ -7,6 +7,12 @@ const CitySchema = new Schema({
     type: String,
     required: [true, "City name is required"],
   },
+  universities: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "University",
+    },
+  ],
 });
 
 module.exports = mongoose.model("City", CitySchema);

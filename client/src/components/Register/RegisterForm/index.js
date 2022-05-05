@@ -6,13 +6,13 @@ import {
   Button,
   Grid,
   Box,
-  Link,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 let registerSchema = yup.object().shape({
   name: yup.string().required("Zorunlu alan"),
@@ -169,9 +169,7 @@ const RegisterForm = () => {
         </Button>
         <Grid container justifyContent="flex-end">
           <Grid item>
-            <Link href="#" variant="body2">
-              Zaten hesabınız var mı? Giriş yapın
-            </Link>
+            <Link to="/login">Zaten hesabınız var mı? Giriş yapın</Link>
           </Grid>
         </Grid>
       </Box>

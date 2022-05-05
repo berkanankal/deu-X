@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import {
   List,
@@ -17,6 +17,8 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const useStyles = makeStyles({
   list: {
@@ -27,7 +29,41 @@ const useStyles = makeStyles({
 const LeftMenu = () => {
   const classes = useStyles();
 
-  const [university, setUniversity] = useState("");
+  const [cities, setCities] = useState([]);
+  const [universities, setUniversities] = useState([]);
+  const [faculties, setFaculties] = useState([]);
+  const [departments, setDepartments] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/city").then((res) => {
+      setCities(res.data.data);
+    });
+    axios.get("http://localhost:5000/api/university").then((res) => {
+      setUniversities(res.data.data);
+    });
+    axios.get("http://localhost:5000/api/faculty").then((res) => {
+      setFaculties(res.data.data);
+    });
+    axios.get("http://localhost:5000/api/department").then((res) => {
+      setDepartments(res.data.data);
+    });
+  }, []);
+
+  const [selectedItems, setSelectedItems] = useState({
+    selectedCity: 0,
+    selectedUniversity: 0,
+    selectedFaculty: 0,
+    selectedDepartment: 0,
+  });
+
+  console.log(selectedItems);
+
+  const onChangeSelectInput = (e) => {
+    setSelectedItems({
+      ...selectedItems,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <Box>
@@ -51,43 +87,119 @@ const LeftMenu = () => {
       <Divider />
       <List className={classes.list}>
         <ListItem>
-          <FormControl fullWidth disabled>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Şehir</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Şehir"
+              name="selectedCity"
+              value={selectedItems.selectedCity}
+              onChange={onChangeSelectInput}
+            >
+              <MenuItem value={0}>Tüm şehirler</MenuItem>
+              {cities.map((city) => (
+                <MenuItem value={city._id} key={city._id}>
+                  {city.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </ListItem>
+        <ListItem>
+          <FormControl fullWidth disabled={selectedItems.selectedCity === 0}>
             <InputLabel id="demo-simple-select-label">Üniversite</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Üniversite"
-              value={1}
+              name="selectedUniversity"
+              value={
+                selectedItems.selectedCity === 0
+                  ? 0
+                  : selectedItems.selectedUniversity
+              }
+              onChange={onChangeSelectInput}
             >
-              <MenuItem value={1}>Dokuz Eylül Üniversitesi</MenuItem>
+              <MenuItem value={0}>Tüm üniversiteler</MenuItem>
+              {universities.map(
+                (university) =>
+                  university.city === selectedItems.selectedCity && (
+                    <MenuItem value={university._id} key={university._id}>
+                      {university.name}
+                    </MenuItem>
+                  )
+              )}
             </Select>
           </FormControl>
         </ListItem>
         <ListItem>
-          <FormControl fullWidth disabled>
+          <FormControl
+            fullWidth
+            disabled={
+              selectedItems.selectedCity === 0 ||
+              selectedItems.selectedUniversity === 0
+            }
+          >
             <InputLabel id="demo-simple-select-label">Fakülte</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Fakülte"
-              value={1}
+              name="selectedFaculty"
+              value={
+                selectedItems.selectedUniversity === 0 ||
+                selectedItems.selectedCity === 0
+                  ? 0
+                  : selectedItems.selectedFaculty
+              }
+              onChange={onChangeSelectInput}
             >
-              <MenuItem value={1}>
-                İktisadi ve İdari Bilimler Fakültesi
-              </MenuItem>
+              <MenuItem value={0}>Tüm Fakülteler</MenuItem>
+              {faculties.map(
+                (faculty) =>
+                  faculty.university === selectedItems.selectedUniversity && (
+                    <MenuItem value={faculty._id} key={faculty._id}>
+                      {faculty.name}
+                    </MenuItem>
+                  )
+              )}
             </Select>
           </FormControl>
         </ListItem>
         <ListItem>
-          <FormControl fullWidth disabled>
+          <FormControl
+            fullWidth
+            disabled={
+              selectedItems.selectedCity === 0 ||
+              selectedItems.selectedUniversity === 0 ||
+              selectedItems.selectedFaculty === 0
+            }
+          >
             <InputLabel id="demo-simple-select-label">Bölüm</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Bölüm"
-              value={1}
+              name="selectedDepartment"
+              value={
+                selectedItems.selectedUniversity === 0 ||
+                selectedItems.selectedCity === 0 ||
+                selectedItems.selectedFaculty === 0
+                  ? 0
+                  : selectedItems.selectedDepartment
+              }
+              onChange={onChangeSelectInput}
             >
-              <MenuItem value={1}>Yönetim Bilişim Sistemleri</MenuItem>
+              <MenuItem value={0}>Tüm Bölümler</MenuItem>
+              {departments.map(
+                (department) =>
+                  department.faculty === selectedItems.selectedFaculty && (
+                    <MenuItem value={department._id} key={department._id}>
+                      {department.name}
+                    </MenuItem>
+                  )
+              )}
             </Select>
           </FormControl>
         </ListItem>

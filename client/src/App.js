@@ -28,19 +28,16 @@ const App = () => {
     <>
       <ToastContainer />
       <Routes>
+        <Route path="login" element={!user ? <Login /> : <Navigate to="/" />} />
+        <Route
+          path="register"
+          element={!user ? <Register /> : <Navigate to="/" />}
+        />
         <Route path="/" element={<User />}>
           <Route index element={<UserHome />} />
           <Route path="notlar" element={<Notes />} />
           <Route path="kitaplar" element={<Books />} />
           <Route path="esyalar" element={<Things />} />
-          <Route
-            path="login"
-            element={!user ? <Login /> : <Navigate to="/" />}
-          />
-          <Route
-            path="register"
-            element={!user ? <Register /> : <Navigate to="/" />}
-          />
         </Route>
         <Route path="dashboard" element={<Dashboard />}>
           <Route index element={<DashboardHome />} />

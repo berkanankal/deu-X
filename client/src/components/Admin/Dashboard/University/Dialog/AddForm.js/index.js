@@ -42,6 +42,7 @@ const AddForm = () => {
             value={formData.selectedCity}
             onChange={onChangeSelectInput}
           >
+            <MenuItem>Tüm şehirler</MenuItem>
             {cities.map((city) => (
               <MenuItem key={city.id} value={city.id}>
                 {city.name}

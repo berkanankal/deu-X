@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const City = require("./City");
 
 const { Schema } = mongoose;
 
@@ -7,13 +8,23 @@ const UniversitySchema = new Schema({
     type: String,
     required: [true, "Name is required"],
   },
-  faculty: [
+  city: {
+    type: Schema.Types.ObjectId,
+    ref: "City",
+    required: true,
+  },
+  faculties: [
     {
       type: Schema.Types.ObjectId,
       ref: "Faculty",
-      required: [true, "Faculty is required"],
     },
   ],
+});
+
+UniversitySchema.pre("save", async function () {
+  const city = await City.findById(this.city);
+  city.universities.push(this._id);
+  await city.save();
 });
 
 module.exports = mongoose.model("University", UniversitySchema);

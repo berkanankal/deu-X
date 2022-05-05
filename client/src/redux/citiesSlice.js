@@ -7,18 +7,34 @@ export const citiesSlice = createSlice({
       {
         id: 1,
         name: "İzmir",
-        districts: [
+        universities: [
           {
             id: 1,
-            name: "Alsancak",
+            name: "Dokuz Eylül Üniversitesi",
+            faculties: [
+              {
+                id: 1,
+                name: "İktisadi ve İdari Bilimler Fakültesi",
+                departments: [
+                  {
+                    id: 1,
+                    name: "Yönetim Bilişim Sistemleri",
+                  },
+                  {
+                    id: 2,
+                    name: "Ekonometri",
+                  },
+                ],
+              },
+              {
+                id: 2,
+                name: "Buca Eğitim Fakültesi",
+              },
+            ],
           },
           {
             id: 2,
-            name: "Buca",
-          },
-          {
-            id: 3,
-            name: "Bornova",
+            name: "Ege Üniversitesi",
           },
         ],
       },

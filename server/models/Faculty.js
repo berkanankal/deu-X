@@ -21,7 +21,10 @@ const FacultySchema = new Schema({
   ],
 });
 
-FacultySchema.pre("save", async function () {
+FacultySchema.pre("save", async function (next) {
+  if (!this.isModified("university")) {
+    return next();
+  }
   const university = await University.findById(this.university);
   university.faculties.push(this._id);
   await university.save();

@@ -26,7 +26,15 @@ const useStyles = makeStyles({
   },
 });
 
-const LeftMenu = () => {
+const LeftMenu = ({
+  selectedItems,
+  setSelectedItems,
+  classCheckbox,
+  setClassChecbox,
+  semesterCheckbox,
+  setSemesterCheckbox,
+  setSearchQuery,
+}) => {
   const classes = useStyles();
 
   const [cities, setCities] = useState([]);
@@ -49,20 +57,31 @@ const LeftMenu = () => {
     });
   }, []);
 
-  const [selectedItems, setSelectedItems] = useState({
-    selectedCity: 0,
-    selectedUniversity: 0,
-    selectedFaculty: 0,
-    selectedDepartment: 0,
-  });
-
-  console.log(selectedItems);
-
   const onChangeSelectInput = (e) => {
     setSelectedItems({
       ...selectedItems,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleClassChecbox = (e) => {
+    let newArray = [...classCheckbox, e.target.value];
+    if (classCheckbox.includes(e.target.value)) {
+      newArray = newArray.filter((sinif) => sinif !== e.target.value);
+    }
+    setClassChecbox(newArray);
+  };
+
+  const handleSemesterChecbox = (e) => {
+    let newArray = [...semesterCheckbox, e.target.value];
+    if (semesterCheckbox.includes(e.target.value)) {
+      newArray = newArray.filter((semester) => semester !== e.target.value);
+    }
+    setSemesterCheckbox(newArray);
+  };
+
+  const onChangeSearchInput = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -74,6 +93,8 @@ const LeftMenu = () => {
             id="standard-bare"
             variant="outlined"
             placeholder="Aranacak kelime"
+            name="searchQuery"
+            onChange={onChangeSearchInput}
             InputProps={{
               endAdornment: (
                 <IconButton>
@@ -217,12 +238,29 @@ const LeftMenu = () => {
         <ListItem>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
+              control={<Checkbox />}
               label="1. Sınıf"
+              value="1"
+              onChange={handleClassChecbox}
             />
-            <FormControlLabel control={<Checkbox />} label="2. Sınıf" />
-            <FormControlLabel control={<Checkbox />} label="3. Sınıf" />
-            <FormControlLabel control={<Checkbox />} label="4. Sınıf" />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="2. Sınıf"
+              value="2"
+              onChange={handleClassChecbox}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="3. Sınıf"
+              value="3"
+              onChange={handleClassChecbox}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="4. Sınıf"
+              value="4"
+              onChange={handleClassChecbox}
+            />
           </FormGroup>
         </ListItem>
       </List>
@@ -239,12 +277,16 @@ const LeftMenu = () => {
         <ListItem>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
+              control={<Checkbox />}
               label="Güz Dönemi"
+              value={"guz"}
+              onChange={handleSemesterChecbox}
             />
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
+              control={<Checkbox />}
               label="Bahar Dönemi"
+              value={"bahar"}
+              onChange={handleSemesterChecbox}
             />
           </FormGroup>
         </ListItem>

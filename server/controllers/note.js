@@ -13,7 +13,29 @@ const addNote = asyncHandler(async (req, res) => {
 });
 
 const getAllNotes = asyncHandler(async (req, res) => {
-  let query = Note.find();
+  let query = Note.find()
+    .populate({
+      path: "city",
+      select: "name",
+    })
+    .populate({
+      path: "university",
+      select: "name",
+    })
+    .populate({
+      path: "faculty",
+      select: "name",
+    })
+    .populate({
+      path: "department",
+      select: "name",
+    })
+
+  if (req.query.search) {
+    const regex = new RegExp(req.query.search, "i");
+
+    query = query.where({ name: regex });
+  }
 
   if (req.query.city) {
     query = query.where({ city: req.query.city });
@@ -29,6 +51,13 @@ const getAllNotes = asyncHandler(async (req, res) => {
 
   if (req.query.department) {
     query = query.where({ department: req.query.department });
+  }
+
+  if (req.query.class) {
+    query = query.where({ class: req.query.class.split(",") });
+  }
+  if (req.query.semester) {
+    query = query.where({ semester: req.query.semester.split(",") });
   }
 
   const notes = await query;

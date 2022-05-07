@@ -30,6 +30,16 @@ const NoteSchema = new Schema({
     type: String,
     default: "default.jpg",
   },
+  class: {
+    type: String,
+    required: [true, "Class is required"],
+    enum: ["1", "2", "3", "4"],
+  },
+  semester: {
+    type: String,
+    required: [true, "Semester is required"],
+    enum: ["guz", "bahar"],
+  },
 });
 
 module.exports = mongoose.model("Note", NoteSchema);

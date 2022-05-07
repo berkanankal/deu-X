@@ -21,7 +21,11 @@ const UniversitySchema = new Schema({
   ],
 });
 
-UniversitySchema.pre("save", async function () {
+UniversitySchema.pre("save", async function (next) {
+  if (!this.isModified("city")) {
+    return next();
+  }
+
   const city = await City.findById(this.city);
   city.universities.push(this._id);
   await city.save();

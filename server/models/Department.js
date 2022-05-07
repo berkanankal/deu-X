@@ -15,7 +15,10 @@ const DepartmentSchema = new Schema({
   },
 });
 
-DepartmentSchema.pre("save", async function () {
+DepartmentSchema.pre("save", async function (next) {
+  if (!this.isModified("faculty")) {
+    return next();
+  }
   const faculty = await Faculty.findById(this.faculty);
   faculty.departments.push(this._id);
   await faculty.save();

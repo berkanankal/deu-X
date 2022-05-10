@@ -5,29 +5,24 @@ import {
   CardContent,
   Button,
   Typography,
+  CardMedia,
 } from "@mui/material";
+import Ybs from "../../../../images/ybs.jpg";
 
 const Book = () => {
   return (
     <Card>
+      <CardMedia component="img" src={Ybs} alt="ceza" />
       <CardContent>
+        <Typography sx={{ fontSize: 18, fontWeight: "bold" }} component="div">
+          Yönetim Bilişim Sistemleri
+        </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant="h5" component="div">
-          Deneme
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          Kolektif
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small">Detay</Button>
       </CardActions>
     </Card>
   );

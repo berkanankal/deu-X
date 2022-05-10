@@ -24,7 +24,12 @@ const Books = () => {
           size="large"
           variant="outlined"
           color="primary"
-          style={{ marginTop: 130 }}
+          style={{
+            marginTop: 100,
+            marginBottom: 100,
+            position: "relative",
+            left: "25%",
+          }}
         />
       </Grid>
     </Grid>

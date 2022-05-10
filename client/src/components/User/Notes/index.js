@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Grid, Pagination } from "@mui/material";
 import LeftMenu from "./LeftMenu";
 import Note from "./Note";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchNotes } from "../../../redux/notesSlice";
 
 const Notes = () => {
-  const items = [1, 2, 3, 4, 5, 6];
-
-  const [notes, setNotes] = useState([]);
+  const dispatch = useDispatch();
+  const { notes, loading, error } = useSelector((state) => state.notes);
 
   const [selectedItems, setSelectedItems] = useState({
     selectedCity: 0,
@@ -45,23 +45,23 @@ const Notes = () => {
     }
 
     if (classCheckbox.length) {
-      if (selectedItems.selectedCity) {
-        url = `${url}&class=${classCheckbox}`;
+      if (url.includes("?")) {
+        url = `${url}&class=${classCheckbox.join(",")}`;
       } else {
-        url = `${url}?class=${classCheckbox}`;
+        url = `${url}?class=${classCheckbox.join(",")}`;
       }
     }
 
     if (semesterCheckbox.length) {
-      if (selectedItems.selectedCity || classCheckbox.length > 0) {
-        url = `${url}&semester=${semesterCheckbox}`;
+      if (url.includes("?")) {
+        url = `${url}&semester=${semesterCheckbox.join(",")}`;
       } else {
-        url = `${url}?semester=${semesterCheckbox}`;
+        url = `${url}?semester=${semesterCheckbox.join(",")}`;
       }
     }
 
-    axios.get(url).then((res) => setNotes(res.data.data));
-  }, [selectedItems, classCheckbox, semesterCheckbox, searchQuery]);
+    dispatch(fetchNotes(url));
+  }, [selectedItems, classCheckbox, semesterCheckbox, searchQuery, dispatch]);
 
   return (
     <Grid container spacing={2}>
@@ -78,19 +78,33 @@ const Notes = () => {
       </Grid>
       <Grid item xs={9}>
         <Grid container spacing={2}>
-          {notes.map((note) => (
-            <Grid item xs={3}>
-              <Note note={note} />
-            </Grid>
-          ))}
+          {loading ? (
+            <div>Loading...</div>
+          ) : notes.length > 0 ? (
+            notes.map((note) => (
+              <Grid item xs={3}>
+                <Note note={note} />
+              </Grid>
+            ))
+          ) : (
+            <div>Not yok</div>
+          )}
         </Grid>
-        <Pagination
-          count={10}
-          size="large"
-          variant="outlined"
-          color="primary"
-          style={{ marginTop: 100 }}
-        />
+
+        {notes.length > 0 && (
+          <Pagination
+            count={10}
+            size="large"
+            variant="outlined"
+            color="primary"
+            style={{
+              marginTop: 100,
+              marginBottom: 100,
+              position: "relative",
+              left: "25%",
+            }}
+          />
+        )}
       </Grid>
     </Grid>
   );

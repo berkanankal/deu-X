@@ -1,48 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const fetchCities = createAsyncThunk("cities/getAllCities", async () => {
+  const res = await axios.get("http://localhost:5000/api/city");
+  return res.data.data;
+});
 
 export const citiesSlice = createSlice({
   name: "cities",
   initialState: {
-    cities: [
-      {
-        id: 1,
-        name: "İzmir",
-        universities: [
-          {
-            id: 1,
-            name: "Dokuz Eylül Üniversitesi",
-            faculties: [
-              {
-                id: 1,
-                name: "İktisadi ve İdari Bilimler Fakültesi",
-                departments: [
-                  {
-                    id: 1,
-                    name: "Yönetim Bilişim Sistemleri",
-                  },
-                  {
-                    id: 2,
-                    name: "Ekonometri",
-                  },
-                ],
-              },
-              {
-                id: 2,
-                name: "Buca Eğitim Fakültesi",
-              },
-            ],
-          },
-          {
-            id: 2,
-            name: "Ege Üniversitesi",
-          },
-        ],
-      },
-    ],
+    cities: [],
   },
   reducers: {},
+  extraReducers: {
+    [fetchCities.fulfilled]: (state, action) => {
+      state.cities = action.payload;
+    },
+  },
 });
-
-export const {} = citiesSlice.actions;
 
 export default citiesSlice.reducer;

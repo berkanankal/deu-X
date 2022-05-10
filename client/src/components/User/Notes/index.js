@@ -83,7 +83,7 @@ const Notes = () => {
           ) : notes.length > 0 ? (
             notes.map((note) => (
               <Grid item xs={3}>
-                <Note note={note} />
+                <Note key={note._id} note={note} />
               </Grid>
             ))
           ) : (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Box from "@mui/material/Box";
 import {
   List,
@@ -26,18 +26,17 @@ const useStyles = makeStyles({
   },
 });
 
-const LeftMenu = () => {
+const LeftMenu = ({
+  selectedItems,
+  setSelectedItems,
+  setSearchQuery,
+  typeOfBookCheckbox,
+  setTypeOfBookCheckbox,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const { cities } = useSelector((state) => state.cities);
-
-  const [selectedItems, setSelectedItems] = useState({
-    selectedCity: 0,
-    selectedUniversity: 0,
-    selectedFaculty: 0,
-    selectedDepartment: 0,
-  });
 
   useEffect(() => {
     dispatch(fetchCities());
@@ -78,6 +77,20 @@ const LeftMenu = () => {
     }
   };
 
+  const handleBookTypeChecbox = (e) => {
+    let newArray = [...typeOfBookCheckbox, e.target.value];
+    if (typeOfBookCheckbox.includes(e.target.value)) {
+      newArray = newArray.filter((typeOfBook) => typeOfBook !== e.target.value);
+    }
+    setTypeOfBookCheckbox(newArray);
+
+    console.log(e.target.value);
+  };
+
+  const onChangeSearchInput = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <Box>
       <List className={classes.list}>
@@ -87,6 +100,7 @@ const LeftMenu = () => {
             id="standard-bare"
             variant="outlined"
             placeholder="Aranacak kelime"
+            onChange={onChangeSearchInput}
             InputProps={{
               endAdornment: (
                 <IconButton>
@@ -233,38 +247,21 @@ const LeftMenu = () => {
         <ListItem>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
+              control={<Checkbox />}
               label="Ders Kitabı"
+              value="ders"
+              onChange={handleBookTypeChecbox}
             />
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
+              control={<Checkbox />}
               label="Roman"
+              value="roman"
+              onChange={handleBookTypeChecbox}
             />
           </FormGroup>
         </ListItem>
       </List>
       <Divider />
-      <List
-        component="nav"
-        className={classes.list}
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Sınıf
-          </ListSubheader>
-        }
-      >
-        <ListItem>
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="1. Sınıf"
-            />
-            <FormControlLabel control={<Checkbox />} label="2. Sınıf" />
-            <FormControlLabel control={<Checkbox />} label="3. Sınıf" />
-            <FormControlLabel control={<Checkbox />} label="4. Sınıf" />
-          </FormGroup>
-        </ListItem>
-      </List>
     </Box>
   );
 };

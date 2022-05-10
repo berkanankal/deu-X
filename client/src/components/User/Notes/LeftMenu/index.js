@@ -45,8 +45,6 @@ const LeftMenu = ({
     dispatch(fetchCities());
   }, [dispatch]);
 
-  console.log(selectedItems);
-
   const onChangeSelectInput = (e) => {
     if (e.target.name === "selectedCity") {
       setSelectedItems({

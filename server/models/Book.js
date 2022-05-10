@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const BokeSchema = new Schema({
+const BookSchema = new Schema({
   name: {
     type: String,
     required: [true, "Name is required"],
@@ -34,11 +34,6 @@ const BokeSchema = new Schema({
     type: String,
     default: "default.jpg",
   },
-  class: {
-    type: String,
-    required: [true, "Class is required"],
-    enum: ["1", "2", "3", "4"],
-  },
   typeOfBook: {
     type: String,
     required: [true, "Type of book is required"],
@@ -46,4 +41,4 @@ const BokeSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Boke", BokeSchema);
+module.exports = mongoose.model("Book", BookSchema);

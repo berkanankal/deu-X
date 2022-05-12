@@ -15,6 +15,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./redux/authSlice";
+import Housemates from "./components/User/Housemates";
+import NoteDetails from "./components/User/Notes/NoteDetails";
 
 const App = () => {
   const user = useSelector((state) => state.auth.user);
@@ -36,8 +38,10 @@ const App = () => {
         <Route path="/" element={<User />}>
           <Route index element={<UserHome />} />
           <Route path="notlar" element={<Notes />} />
+          <Route path="notlar/:id" element={<NoteDetails />} />
           <Route path="kitaplar" element={<Books />} />
           <Route path="esyalar" element={<Things />} />
+          <Route path="evarkadaslari" element={<Housemates />} />
         </Route>
         <Route path="dashboard" element={<Dashboard />}>
           <Route index element={<DashboardHome />} />

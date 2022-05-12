@@ -6,6 +6,8 @@ const faculty = require("./faculty");
 const department = require("./department");
 const note = require("./note");
 const book = require("./book");
+const thing = require("./thing");
+const thingCategory = require("./thingCategory");
 
 const router = express.Router();
 
@@ -16,5 +18,7 @@ router.use("/faculty", faculty);
 router.use("/department", department);
 router.use("/note", note);
 router.use("/book", book);
+router.use("/thing", thing);
+router.use("/thingCategory", thingCategory);
 
 module.exports = router;

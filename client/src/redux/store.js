@@ -3,6 +3,8 @@ import citiesReducer from "./citiesSlice";
 import authReducer from "./authSlice";
 import notesReducer from "./notesSlice";
 import booksReducer from "./booksSlice";
+import thingsReducer from "./thingsSlice";
+import thingCategoriesReducer from "./thingCategoriesSlice";
 
 export default configureStore({
   reducer: {
@@ -10,5 +12,7 @@ export default configureStore({
     auth: authReducer,
     notes: notesReducer,
     books: booksReducer,
+    things: thingsReducer,
+    thingCategories: thingCategoriesReducer,
   },
 });

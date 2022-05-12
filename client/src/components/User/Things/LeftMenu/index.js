@@ -15,6 +15,7 @@ import { makeStyles } from "@mui/styles";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCities } from "../../../../redux/citiesSlice";
+import { fetchThingCategories } from "../../../../redux/thingCategoriesSlice";
 
 const useStyles = makeStyles({
   list: {
@@ -22,22 +23,17 @@ const useStyles = makeStyles({
   },
 });
 
-const LeftMenu = ({ setSearchQuery }) => {
+const LeftMenu = ({ setSearchQuery, selectedItems, setSelectedItems }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const { cities } = useSelector((state) => state.cities);
+  const { thingCategories } = useSelector((state) => state.thingCategories);
 
   useEffect(() => {
     dispatch(fetchCities());
+    dispatch(fetchThingCategories());
   }, [dispatch]);
-
-  const [selectedItems, setSelectedItems] = useState({
-    selectedCity: 0,
-    selectedUniversity: 0,
-    selectedFaculty: 0,
-    selectedDepartment: 0,
-  });
 
   const onChangeSelectInput = (e) => {
     if (e.target.name === "selectedCity") {
@@ -68,6 +64,12 @@ const LeftMenu = ({ setSearchQuery }) => {
       setSelectedItems({
         ...selectedItems,
         selectedDepartment: e.target.value,
+      });
+    }
+    if (e.target.name === "selectedThingCategory") {
+      setSelectedItems({
+        ...selectedItems,
+        selectedThingCategory: e.target.value,
       });
     }
   };
@@ -222,15 +224,22 @@ const LeftMenu = ({ setSearchQuery }) => {
       <Divider />
       <List className={classes.list}>
         <ListItem>
-          <FormControl fullWidth disabled>
+          <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Kategori</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Kategori"
-              value={1}
+              name="selectedThingCategory"
+              value={selectedItems.selectedThingCategory}
+              onChange={onChangeSelectInput}
             >
-              <MenuItem value={1}>Mobilya</MenuItem>
+              <MenuItem value={0}>Tüm kategoriler</MenuItem>
+              {thingCategories.map((thingCategory) => (
+                <MenuItem key={thingCategory._id} value={thingCategory._id}>
+                  {thingCategory.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </ListItem>

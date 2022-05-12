@@ -29,7 +29,7 @@ const getAllNotes = asyncHandler(async (req, res) => {
     .populate({
       path: "department",
       select: "name",
-    })
+    });
 
   if (req.query.search) {
     const regex = new RegExp(req.query.search, "i");
@@ -67,7 +67,41 @@ const getAllNotes = asyncHandler(async (req, res) => {
   });
 });
 
+const getNoteById = asyncHandler(async (req, res) => {
+  const note = await Note.findById(req.params.id)
+    .populate({
+      path: "city",
+      select: "name",
+    })
+    .populate({
+      path: "university",
+      select: "name",
+    })
+    .populate({
+      path: "faculty",
+      select: "name",
+    })
+    .populate({
+      path: "department",
+      select: "name",
+    })
+    .populate({
+      path: "class",
+      select: "name",
+    })
+    .populate({
+      path: "semester",
+      select: "name",
+    });
+
+  return res.status(200).json({
+    success: true,
+    data: note,
+  });
+});
+
 module.exports = {
   addNote,
   getAllNotes,
+  getNoteById,
 };

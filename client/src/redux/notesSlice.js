@@ -6,6 +6,15 @@ export const fetchNotes = createAsyncThunk("notes/getAllNotes", async (url) => {
   return res.data.data;
 });
 
+export const fetchNoteById = createAsyncThunk(
+  "notes/getNoteById",
+  async (id) => {
+    const url = `http://localhost:5000/api/note/${id}`;
+    const res = await axios.get(url);
+    return res.data.data;
+  }
+);
+
 export const notesSlice = createSlice({
   name: "notes",
   initialState: {

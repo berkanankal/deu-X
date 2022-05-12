@@ -21,7 +21,7 @@ import { logout } from "../redux/authSlice";
 const pages = [
   {
     name: "Ev Arkadaşı",
-    path: "/evarkadasi",
+    path: "/evarkadaslari",
   },
   { name: "Eşya", path: "/esyalar" },
   { name: "Kitap", path: "/kitaplar" },
@@ -95,7 +95,7 @@ const Header2 = () => {
           <Button
             sx={{ color: "white" }}
             component={Link}
-            to="/ "
+            to="/"
             className={classes.logo}
           >
             <Typography variant="h6" noWrap component="div">

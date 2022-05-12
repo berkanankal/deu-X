@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import {
   List,
@@ -8,16 +8,16 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormGroup,
   FormControlLabel,
-  Checkbox,
-  ListSubheader,
   TextField,
   IconButton,
+  FormLabel,
+  RadioGroup,
+  Radio,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchCities } from "../../../../redux/citiesSlice";
 
 const useStyles = makeStyles({
@@ -26,17 +26,18 @@ const useStyles = makeStyles({
   },
 });
 
-const LeftMenu = ({
-  selectedItems,
-  setSelectedItems,
-  setSearchQuery,
-  typeOfBookCheckbox,
-  setTypeOfBookCheckbox,
-}) => {
+const LeftMenu = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const { cities } = useSelector((state) => state.cities);
+
+  const [selectedItems, setSelectedItems] = useState({
+    selectedCity: 0,
+    selectedUniversity: 0,
+    selectedFaculty: 0,
+    selectedDepartment: 0,
+  });
 
   useEffect(() => {
     dispatch(fetchCities());
@@ -75,18 +76,6 @@ const LeftMenu = ({
     }
   };
 
-  const handleBookTypeChecbox = (e) => {
-    let newArray = [...typeOfBookCheckbox, e.target.value];
-    if (typeOfBookCheckbox.includes(e.target.value)) {
-      newArray = newArray.filter((typeOfBook) => typeOfBook !== e.target.value);
-    }
-    setTypeOfBookCheckbox(newArray);
-  };
-
-  const onChangeSearchInput = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
   return (
     <Box>
       <List className={classes.list}>
@@ -96,7 +85,7 @@ const LeftMenu = ({
             id="standard-bare"
             variant="outlined"
             placeholder="Aranacak kelime"
-            onChange={onChangeSearchInput}
+            name="searchQuery"
             InputProps={{
               endAdornment: (
                 <IconButton>
@@ -105,6 +94,28 @@ const LeftMenu = ({
               ),
             }}
           />
+        </ListItem>
+      </List>
+      <Divider />
+      <List className={classes.list}>
+        <ListItem>
+          <FormControl>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              name="radio-buttons-group"
+            >
+              <FormControlLabel
+                value=""
+                control={<Radio />}
+                label="Kalacak ev arıyorum"
+              />
+              <FormControlLabel
+                value=""
+                control={<Radio />}
+                label="Evime arkadaş arıyorum"
+              />
+            </RadioGroup>
+          </FormControl>
         </ListItem>
       </List>
       <Divider />
@@ -230,34 +241,6 @@ const LeftMenu = ({
           </FormControl>
         </ListItem>
       </List>
-      <Divider />
-      <List
-        component="nav"
-        className={classes.list}
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Tür
-          </ListSubheader>
-        }
-      >
-        <ListItem>
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Ders Kitabı"
-              value="ders"
-              onChange={handleBookTypeChecbox}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Roman"
-              value="roman"
-              onChange={handleBookTypeChecbox}
-            />
-          </FormGroup>
-        </ListItem>
-      </List>
-      <Divider />
     </Box>
   );
 };

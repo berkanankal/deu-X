@@ -84,14 +84,6 @@ const getNoteById = asyncHandler(async (req, res) => {
     .populate({
       path: "department",
       select: "name",
-    })
-    .populate({
-      path: "class",
-      select: "name",
-    })
-    .populate({
-      path: "semester",
-      select: "name",
     });
 
   return res.status(200).json({

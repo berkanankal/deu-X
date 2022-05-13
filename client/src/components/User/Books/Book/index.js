@@ -8,6 +8,7 @@ import {
   CardMedia,
 } from "@mui/material";
 import Ybs from "../../../../images/ybs.jpg";
+import { Link } from "react-router-dom";
 
 const Book = ({ book }) => {
   return (
@@ -22,7 +23,9 @@ const Book = ({ book }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Detay</Button>
+        <Button component={Link} to={`${book._id}`} size="small">
+          Detay
+        </Button>
       </CardActions>
     </Card>
   );

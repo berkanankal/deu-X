@@ -63,4 +63,29 @@ const getAllBooks = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { addBook, getAllBooks };
+const getBookById = asyncHandler(async (req, res) => {
+  const book = await Book.findById(req.params.id)
+    .populate({
+      path: "city",
+      select: "name",
+    })
+    .populate({
+      path: "university",
+      select: "name",
+    })
+    .populate({
+      path: "faculty",
+      select: "name",
+    })
+    .populate({
+      path: "department",
+      select: "name",
+    });
+
+  return res.status(200).json({
+    success: true,
+    data: book,
+  });
+});
+
+module.exports = { addBook, getAllBooks, getBookById };

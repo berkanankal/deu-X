@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./redux/authSlice";
 import Housemates from "./components/User/Housemates";
 import NoteDetails from "./components/User/Notes/NoteDetails";
+import BookDetails from "./components/User/Books/BookDetails";
 
 const App = () => {
   const user = useSelector((state) => state.auth.user);
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="notlar" element={<Notes />} />
           <Route path="notlar/:id" element={<NoteDetails />} />
           <Route path="kitaplar" element={<Books />} />
+          <Route path="kitaplar/:id" element={<BookDetails />} />
           <Route path="esyalar" element={<Things />} />
           <Route path="evarkadaslari" element={<Housemates />} />
         </Route>

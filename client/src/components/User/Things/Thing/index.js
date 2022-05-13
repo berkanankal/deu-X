@@ -8,6 +8,7 @@ import {
   CardMedia,
 } from "@mui/material";
 import Raspberry from "../../../../images/raspberry.jpg";
+import { Link } from "react-router-dom";
 
 const Thing = ({ thing }) => {
   return (
@@ -22,7 +23,9 @@ const Thing = ({ thing }) => {
         </Typography> */}
       </CardContent>
       <CardActions>
-        <Button size="small">Detay</Button>
+        <Button component={Link} to={`${thing._id}`} size="small">
+          Detay
+        </Button>
       </CardActions>
     </Card>
   );

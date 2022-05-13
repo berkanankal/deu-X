@@ -67,4 +67,33 @@ const getAllThings = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { addThing, getAllThings };
+const getThingById = asyncHandler(async (req, res) => {
+  const thing = await Thing.findById(req.params.id)
+    .populate({
+      path: "city",
+      select: "name",
+    })
+    .populate({
+      path: "university",
+      select: "name",
+    })
+    .populate({
+      path: "faculty",
+      select: "name",
+    })
+    .populate({
+      path: "department",
+      select: "name",
+    })
+    .populate({
+      path: "category",
+      select: "name",
+    });
+
+  return res.status(200).json({
+    success: true,
+    data: thing,
+  });
+});
+
+module.exports = { addThing, getAllThings, getThingById };

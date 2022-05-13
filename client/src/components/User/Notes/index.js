@@ -7,7 +7,8 @@ import { fetchNotes } from "../../../redux/notesSlice";
 
 const Notes = () => {
   const dispatch = useDispatch();
-  const { notes, loading, error } = useSelector((state) => state.notes);
+
+  const { notes } = useSelector((state) => state.notes);
 
   const [selectedItems, setSelectedItems] = useState({
     selectedCity: 0,
@@ -78,12 +79,12 @@ const Notes = () => {
       </Grid>
       <Grid item xs={9}>
         <Grid container spacing={2}>
-          {loading ? (
+          {notes.loading ? (
             <div>Loading...</div>
-          ) : notes.length > 0 ? (
-            notes.map((note) => (
-              <Grid item xs={3}>
-                <Note key={note._id} note={note} />
+          ) : notes.data.length > 0 ? (
+            notes.data.map((note) => (
+              <Grid item xs={3} key={note._id}>
+                <Note note={note} />
               </Grid>
             ))
           ) : (
@@ -91,7 +92,7 @@ const Notes = () => {
           )}
         </Grid>
 
-        {notes.length > 0 && (
+        {notes.data.length > 0 && (
           <Pagination
             count={10}
             size="large"

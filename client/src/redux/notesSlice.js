@@ -18,22 +18,40 @@ export const fetchNoteById = createAsyncThunk(
 export const notesSlice = createSlice({
   name: "notes",
   initialState: {
-    notes: [],
-    loading: false,
-    error: null,
+    notes: {
+      data: [],
+      loading: false,
+      error: null,
+    },
+    note: {
+      data: {},
+      status: "idle",
+      error: null,
+    },
   },
   reducers: {},
   extraReducers: {
     [fetchNotes.pending]: (state) => {
-      state.loading = true;
+      state.notes.loading = true;
     },
     [fetchNotes.fulfilled]: (state, action) => {
-      state.notes = action.payload;
-      state.loading = false;
+      state.notes.data = action.payload;
+      state.notes.loading = false;
     },
     [fetchNotes.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+      state.notes.loading = false;
+      state.notes.error = action.error.message;
+    },
+    [fetchNoteById.pending]: (state) => {
+      state.note.status = "loading";
+    },
+    [fetchNoteById.fulfilled]: (state, action) => {
+      state.note.data = action.payload;
+      state.note.status = "succeeded";
+    },
+    [fetchNoteById.rejected]: (state, action) => {
+      state.note.status = "failed";
+      state.note.error = action.error.message;
     },
   },
 });

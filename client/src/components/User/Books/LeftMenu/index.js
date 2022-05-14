@@ -232,7 +232,6 @@ const LeftMenu = ({
       </List>
       <Divider />
       <List
-        component="nav"
         className={classes.list}
         subheader={
           <ListSubheader component="div" id="nested-list-subheader">
@@ -257,7 +256,6 @@ const LeftMenu = ({
           </FormGroup>
         </ListItem>
       </List>
-      <Divider />
     </Box>
   );
 };

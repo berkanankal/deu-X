@@ -1,28 +1,28 @@
 import { useEffect } from "react";
 import { Card, CardContent, Typography, CardMedia, Grid } from "@mui/material";
-import Ceza from "../../../../images/ceza.jpg";
-import { fetchNoteById } from "../../../../redux/notesSlice";
+import User from "../../../../images/user.jpg";
+import { fetchHousemateById } from "../../../../redux/housematesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-const NoteDetails = () => {
+const HousemateDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const { note } = useSelector((state) => state.notes);
+  const { housemate } = useSelector((state) => state.housemates);
 
   useEffect(() => {
-    dispatch(fetchNoteById(id));
+    dispatch(fetchHousemateById(id));
   }, [dispatch, id]);
 
   return (
     <>
-      {note.status === "loading" && <div>Loading...</div>}
+      {housemate.status === "loading" && <div>Loading...</div>}
       <Card sx={{ minWidth: 275 }}>
-        {note.status === "succeeded" && (
+        {housemate.status === "succeeded" && (
           <Grid container spacing={2}>
             <Grid item xs={3}>
-              <CardMedia component="img" src={Ceza} alt="ceza" />
+              <CardMedia component="img" src={User} alt="ceza" />
             </Grid>
             <Grid item xs={9}>
               <CardContent>
@@ -31,22 +31,20 @@ const NoteDetails = () => {
                   color="text.secondary"
                   gutterBottom
                 >
-                  {note.data.name}
+                  {housemate.data.city.name}
+                </Typography>
+                <Typography variant="body2">
+                  {housemate.data.university.name}
                 </Typography>
                 <Typography variant="h5" component="div">
-                  {note.data.city.name}
+                  {housemate.data.faculty.name}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  {note.data.university.name}
+                  {housemate.data.department.name}
                 </Typography>
                 <Typography variant="body2">
-                  {note.data.faculty.name}
+                  {housemate.data.typeOfHousemate}
                 </Typography>
-                <Typography variant="body2">
-                  {note.data.department.name}
-                </Typography>
-                <Typography variant="body2">{note.data.class}</Typography>
-                <Typography variant="body2">{note.data.semester}</Typography>
               </CardContent>
             </Grid>
           </Grid>
@@ -56,4 +54,4 @@ const NoteDetails = () => {
   );
 };
 
-export default NoteDetails;
+export default HousemateDetails;

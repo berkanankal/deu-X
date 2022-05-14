@@ -5,6 +5,7 @@ import notesReducer from "./notesSlice";
 import booksReducer from "./booksSlice";
 import thingsReducer from "./thingsSlice";
 import thingCategoriesReducer from "./thingCategoriesSlice";
+import housematesReducer from "./housematesSlice";
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     books: booksReducer,
     things: thingsReducer,
     thingCategories: thingCategoriesReducer,
+    housemates: housematesReducer,
   },
 });

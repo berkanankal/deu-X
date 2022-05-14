@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Box from "@mui/material/Box";
 import {
   List,
@@ -9,14 +9,10 @@ import {
   Select,
   MenuItem,
   FormControlLabel,
-  TextField,
-  IconButton,
-  FormLabel,
   RadioGroup,
   Radio,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCities } from "../../../../redux/citiesSlice";
 
@@ -26,18 +22,11 @@ const useStyles = makeStyles({
   },
 });
 
-const LeftMenu = () => {
+const LeftMenu = ({ selectedItems, setSelectedItems }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const { cities } = useSelector((state) => state.cities);
-
-  const [selectedItems, setSelectedItems] = useState({
-    selectedCity: 0,
-    selectedUniversity: 0,
-    selectedFaculty: 0,
-    selectedDepartment: 0,
-  });
 
   useEffect(() => {
     dispatch(fetchCities());
@@ -76,43 +65,34 @@ const LeftMenu = () => {
     }
   };
 
+  const onChangeRadioButtons = (e) => {
+    setSelectedItems({
+      ...selectedItems,
+      selectedHousemate: e.target.value,
+    });
+  };
+
+  console.log(selectedItems);
+
   return (
     <Box>
-      <List className={classes.list}>
-        <ListItem>
-          <TextField
-            fullWidth
-            id="standard-bare"
-            variant="outlined"
-            placeholder="Aranacak kelime"
-            name="searchQuery"
-            InputProps={{
-              endAdornment: (
-                <IconButton>
-                  <SearchOutlinedIcon></SearchOutlinedIcon>
-                </IconButton>
-              ),
-            }}
-          />
-        </ListItem>
-      </List>
-      <Divider />
       <List className={classes.list}>
         <ListItem>
           <FormControl>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              name="radio-buttons-group"
+              name="selectedHousemate"
+              onChange={onChangeRadioButtons}
             >
               <FormControlLabel
-                value=""
+                value="1"
                 control={<Radio />}
-                label="Kalacak ev arıyorum"
+                label="Kalacak ev arayanlar"
               />
               <FormControlLabel
-                value=""
+                value="2"
                 control={<Radio />}
-                label="Evime arkadaş arıyorum"
+                label="Evine arkadaş arayanlar"
               />
             </RadioGroup>
           </FormControl>

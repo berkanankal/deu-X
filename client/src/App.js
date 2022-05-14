@@ -19,6 +19,7 @@ import Housemates from "./components/User/Housemates";
 import NoteDetails from "./components/User/Notes/NoteDetails";
 import BookDetails from "./components/User/Books/BookDetails";
 import ThingDetails from "./components/User/Things/ThingDetails";
+import HousemateDetails from "./components/User/Housemates/HousemateDetails";
 
 const App = () => {
   const user = useSelector((state) => state.auth.user);
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="esyalar" element={<Things />} />
           <Route path="esyalar/:id" element={<ThingDetails />} />
           <Route path="evarkadaslari" element={<Housemates />} />
+          <Route path="evarkadaslari/:id" element={<HousemateDetails />} />
         </Route>
         <Route path="dashboard" element={<Dashboard />}>
           <Route index element={<DashboardHome />} />

@@ -1,17 +1,17 @@
-const Book = require("../models/Book");
+const Housemate = require("../models/Housemate");
 const asyncHandler = require("express-async-handler");
 
-const addBook = asyncHandler(async (req, res) => {
+const addHousemate = asyncHandler(async (req, res) => {
   const data = req.body;
-  const book = await Book.create(data);
+  const housemate = await Housemate.create(data);
   res.status(201).json({
     success: true,
-    data: book,
+    data: housemate,
   });
 });
 
-const getAllBooks = asyncHandler(async (req, res) => {
-  let query = Book.find()
+const getAllHousemates = asyncHandler(async (req, res) => {
+  let query = Housemate.find()
     .populate({
       path: "city",
       select: "name",
@@ -28,12 +28,6 @@ const getAllBooks = asyncHandler(async (req, res) => {
       path: "department",
       select: "name",
     });
-
-  if (req.query.search) {
-    const regex = new RegExp(req.query.search, "i");
-
-    query = query.where({ name: regex });
-  }
 
   if (req.query.city) {
     query = query.where({ city: req.query.city });
@@ -51,20 +45,20 @@ const getAllBooks = asyncHandler(async (req, res) => {
     query = query.where({ department: req.query.department });
   }
 
-  if (req.query.typeOfBook) {
-    query = query.where({ typeOfBook: req.query.typeOfBook.split(",") });
+  if (req.query.typeOfHousemate) {
+    query = query.where({ typeOfHousemate: req.query.typeOfHousemate });
   }
 
-  const books = await query;
+  const housemates = await query;
 
   return res.status(200).json({
     success: true,
-    data: books,
+    data: housemates,
   });
 });
 
-const getBookById = asyncHandler(async (req, res) => {
-  const book = await Book.findById(req.params.id)
+const getHousemateById = asyncHandler(async (req, res) => {
+  const housemate = await Housemate.findById(req.params.id)
     .populate({
       path: "city",
       select: "name",
@@ -84,8 +78,8 @@ const getBookById = asyncHandler(async (req, res) => {
 
   return res.status(200).json({
     success: true,
-    data: book,
+    data: housemate,
   });
 });
 
-module.exports = { addBook, getAllBooks, getBookById };
+module.exports = { addHousemate, getAllHousemates, getHousemateById };

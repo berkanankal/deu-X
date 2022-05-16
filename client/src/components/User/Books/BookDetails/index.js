@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Card, CardContent, Typography, CardMedia, Grid } from "@mui/material";
-import Ceza from "../../../../images/ybs.jpg";
+import YBS from "../../../../images/ybs.jpg";
 import { fetchBookById } from "../../../../redux/booksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -24,7 +24,7 @@ const BookDetails = () => {
         {book.status === "succeeded" && (
           <Grid container spacing={2}>
             <Grid item xs={3}>
-              <CardMedia component="img" src={Ceza} alt="ceza" />
+              <CardMedia component="img" src={YBS} alt="ceza" />
             </Grid>
             <Grid item xs={9}>
               <CardContent>

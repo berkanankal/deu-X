@@ -20,10 +20,16 @@ import NoteDetails from "./components/User/Notes/NoteDetails";
 import BookDetails from "./components/User/Books/BookDetails";
 import ThingDetails from "./components/User/Things/ThingDetails";
 import HousemateDetails from "./components/User/Housemates/HousemateDetails";
+import Profile from "./components/User/Profile";
+import AccountInfo from "./components/User/Profile/AccountInfo";
+import MyHousemateAds from "./components/User/Profile/MyHousemateAds";
+import MyThingAds from "./components/User/Profile/MyThingAds";
+import MyBookAds from "./components/User/Profile/MyBookAds";
+import MyNoteAds from "./components/User/Profile/MyNoteAds";
 
 const App = () => {
-  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     dispatch(setUser());
@@ -48,6 +54,13 @@ const App = () => {
           <Route path="esyalar/:id" element={<ThingDetails />} />
           <Route path="evarkadaslari" element={<Housemates />} />
           <Route path="evarkadaslari/:id" element={<HousemateDetails />} />
+          <Route path="profile" element={<Profile />}>
+            <Route index element={<AccountInfo />} />
+            <Route path="myhousemateads" element={<MyHousemateAds />} />
+            <Route path="mythingads" element={<MyThingAds />} />
+            <Route path="mybookads" element={<MyBookAds />} />
+            <Route path="mynoteads" element={<MyNoteAds />} />
+          </Route>
         </Route>
         <Route path="dashboard" element={<Dashboard />}>
           <Route index element={<DashboardHome />} />

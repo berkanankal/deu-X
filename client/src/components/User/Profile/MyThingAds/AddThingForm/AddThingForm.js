@@ -8,29 +8,29 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormControlLabel,
-  FormLabel,
-  RadioGroup,
-  Radio,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCities } from "../../../../../redux/citiesSlice";
+import { fetchThingCategories } from "../../../../../redux/thingCategoriesSlice";
 
-const AddHousemateForm = () => {
+const AddThingForm = () => {
   const dispatch = useDispatch();
 
   const { cities } = useSelector((state) => state.cities);
+  const { thingCategories } = useSelector((state) => state.thingCategories);
 
   useEffect(() => {
     dispatch(fetchCities());
+    dispatch(fetchThingCategories());
   }, [dispatch]);
 
   const [formData, setFormData] = useState({
+    name: "",
     city: 0,
     university: 0,
     faculty: 0,
     department: 0,
-    typeOfHousemate: "",
+    category: 0,
   });
 
   const onChangeOtherInput = (e) => {
@@ -81,27 +81,39 @@ const AddHousemateForm = () => {
   return (
     <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <FormControl>
-            <RadioGroup
-              row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="typeOfHousemate"
+        <Grid item xs={12} sm={6}>
+          <TextField
+            autoComplete="given-name"
+            name="name"
+            fullWidth
+            id="name"
+            label="Eşya İsmi"
+            onChange={onChangeOtherInput}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Kategori</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Kategori"
+              name="category"
+              value={formData.category}
               onChange={onChangeOtherInput}
             >
-              <FormControlLabel
-                value="1"
-                control={<Radio />}
-                label="Kalacak ev arıyorum"
-              />
-              <FormControlLabel
-                value="2"
-                control={<Radio />}
-                label="Evime arkadaş arıyorum"
-              />
-            </RadioGroup>
+              <MenuItem value={0} disabled>
+                Seçiniz
+              </MenuItem>
+              {thingCategories.map((thingCategory) => (
+                <MenuItem value={thingCategory._id} key={thingCategory._id}>
+                  {thingCategory.name}
+                </MenuItem>
+              ))}
+            </Select>
           </FormControl>
         </Grid>
+
         <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Şehir</InputLabel>
@@ -230,4 +242,4 @@ const AddHousemateForm = () => {
   );
 };
 
-export default AddHousemateForm;
+export default AddThingForm;

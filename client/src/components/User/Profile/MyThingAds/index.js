@@ -8,11 +8,12 @@ import {
   Button,
 } from "@mui/material";
 import Raspberry from "../../../../images/raspberry.jpg";
+import { Link } from "react-router-dom";
 
 const MyThingAds = () => {
   return (
     <>
-      <Button variant="contained" sx={{ mb: 3 }}>
+      <Button component={Link} to="add" variant="contained" sx={{ mb: 3 }}>
         Eşya ilanı ver
       </Button>
       <Grid container spacing={2}>

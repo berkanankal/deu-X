@@ -8,11 +8,12 @@ import {
   Button,
 } from "@mui/material";
 import User from "../../../../images/user.jpg";
+import { Link } from "react-router-dom";
 
 const MyHousemateAds = () => {
   return (
     <>
-      <Button variant="contained" sx={{ mb: 3 }}>
+      <Button component={Link} to="add" variant="contained" sx={{ mb: 3 }}>
         Ev arkadaşı ilanı ver
       </Button>
       <Grid container spacing={2}>

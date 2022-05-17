@@ -6,8 +6,11 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/Inbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import GroupIcon from "@mui/icons-material/Group";
+import ChairIcon from "@mui/icons-material/Chair";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import EventNoteIcon from "@mui/icons-material/EventNote";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 
@@ -29,7 +32,7 @@ const LeftMenu = () => {
       <ListItem disablePadding>
         <ListItemButton component={Link} to="">
           <ListItemIcon>
-            <InboxIcon />
+            <ManageAccountsIcon />
           </ListItemIcon>
           <ListItemText primary="Hesap Bilgilerim" />
         </ListItemButton>
@@ -37,7 +40,7 @@ const LeftMenu = () => {
       <ListItem disablePadding>
         <ListItemButton component={Link} to="myhousemateads">
           <ListItemIcon>
-            <DraftsIcon />
+            <GroupIcon />
           </ListItemIcon>
           <ListItemText primary="Ev Arkadaşı İlanlarım" />
         </ListItemButton>
@@ -45,7 +48,7 @@ const LeftMenu = () => {
       <ListItem disablePadding>
         <ListItemButton component={Link} to="mythingads">
           <ListItemIcon>
-            <DraftsIcon />
+            <ChairIcon />
           </ListItemIcon>
           <ListItemText primary="Eşya İlanlarım" />
         </ListItemButton>
@@ -53,7 +56,7 @@ const LeftMenu = () => {
       <ListItem disablePadding>
         <ListItemButton component={Link} to="mybookads">
           <ListItemIcon>
-            <DraftsIcon />
+            <MenuBookIcon />
           </ListItemIcon>
           <ListItemText primary="Kitap İlanlarım" />
         </ListItemButton>
@@ -61,7 +64,7 @@ const LeftMenu = () => {
       <ListItem disablePadding>
         <ListItemButton component={Link} to="mynoteads">
           <ListItemIcon>
-            <DraftsIcon />
+            <EventNoteIcon />
           </ListItemIcon>
           <ListItemText primary="Not İlanlarım" />
         </ListItemButton>

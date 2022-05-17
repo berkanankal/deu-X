@@ -26,6 +26,8 @@ import MyHousemateAds from "./components/User/Profile/MyHousemateAds";
 import MyThingAds from "./components/User/Profile/MyThingAds";
 import MyBookAds from "./components/User/Profile/MyBookAds";
 import MyNoteAds from "./components/User/Profile/MyNoteAds";
+import AddHousemateForm from "./components/User/Profile/MyHousemateAds/AddHousemateForm";
+import AddBookForm from "./components/User/Profile/MyBookAds/AddBookForm";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -45,7 +47,7 @@ const App = () => {
           element={!user ? <Register /> : <Navigate to="/" />}
         />
         <Route path="/" element={<User />}>
-          <Route index element={<UserHome />} />
+          <Route index element={<Housemates />} />
           <Route path="notlar" element={<Notes />} />
           <Route path="notlar/:id" element={<NoteDetails />} />
           <Route path="kitaplar" element={<Books />} />
@@ -57,8 +59,10 @@ const App = () => {
           <Route path="profile" element={<Profile />}>
             <Route index element={<AccountInfo />} />
             <Route path="myhousemateads" element={<MyHousemateAds />} />
+            <Route path="myhousemateads/add" element={<AddHousemateForm />} />
             <Route path="mythingads" element={<MyThingAds />} />
             <Route path="mybookads" element={<MyBookAds />} />
+            <Route path="mybookads/add" element={<AddBookForm />} />
             <Route path="mynoteads" element={<MyNoteAds />} />
           </Route>
         </Route>

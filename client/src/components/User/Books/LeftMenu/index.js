@@ -137,11 +137,7 @@ const LeftMenu = ({
               id="demo-simple-select"
               label="Üniversite"
               name="selectedUniversity"
-              value={
-                selectedItems.selectedCity === 0
-                  ? 0
-                  : selectedItems.selectedUniversity
-              }
+              value={selectedItems.selectedUniversity}
               onChange={onChangeSelectInput}
             >
               <MenuItem value={0}>Tüm üniversiteler</MenuItem>

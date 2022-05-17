@@ -8,11 +8,17 @@ import {
   Button,
 } from "@mui/material";
 import YBS from "../../../../images/ybs.jpg";
+import { Link } from "react-router-dom";
 
 const MyBookAds = () => {
   return (
     <>
-      <Button variant="contained" sx={{ mb: 3 }}>
+      <Button
+        component={Link}
+        to="add"
+        variant="contained"
+        sx={{ mb: 3 }}
+      >
         Kitap ilanı ver
       </Button>
       <Grid container spacing={2}>

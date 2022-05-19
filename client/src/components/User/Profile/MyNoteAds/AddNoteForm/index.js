@@ -15,12 +15,9 @@ import {
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCities } from "../../../../../redux/citiesSlice";
-import { addBook } from "../../../../../redux/booksSlice";
-import { useNavigate } from "react-router";
 
-const AddBookForm = () => {
+const AddNoteForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { cities } = useSelector((state) => state.cities);
 
@@ -30,12 +27,12 @@ const AddBookForm = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    author: "",
     city: 0,
     university: 0,
     faculty: 0,
     department: 0,
-    typeOfBook: "",
+    class: "",
+    semester: "",
   });
 
   const onChangeOtherInput = (e) => {
@@ -80,30 +77,19 @@ const AddBookForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addBook(formData));
-    navigate("/profile/mybookads");
+    console.log(formData);
   };
 
   return (
     <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
           <TextField
             autoComplete="given-name"
             name="name"
             fullWidth
             id="name"
-            label="Kitap"
-            onChange={onChangeOtherInput}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            id="author"
-            label="Yazar"
-            name="author"
-            autoComplete="family-name"
+            label="Not İsmi"
             onChange={onChangeOtherInput}
           />
         </Grid>
@@ -227,26 +213,40 @@ const AddBookForm = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <FormControl>
-            <FormLabel id="demo-row-radio-buttons-group-label">
-              Kitap Türü
-            </FormLabel>
+            <FormLabel id="demo-row-radio-buttons-group-label">Sınıf</FormLabel>
             <RadioGroup
               row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="typeOfBook"
+              aria-labelledby="demo-col-radio-buttons-group-label"
+              name="class"
+              onChange={onChangeOtherInput}
+            >
+              <FormControlLabel value="1" control={<Radio />} label="1" />
+              <FormControlLabel value="2" control={<Radio />} label="2" />
+              <FormControlLabel value="3" control={<Radio />} label="3" />
+              <FormControlLabel value="4" control={<Radio />} label="4" />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl>
+            <FormLabel id="demo-row-radio-buttons-group-label">Dönem</FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="demo-col-radio-buttons-group-label"
+              name="semester"
               onChange={onChangeOtherInput}
             >
               <FormControlLabel
-                value="ders"
+                value="guz"
                 control={<Radio />}
-                label="Ders Kitabı"
+                label="Güz Dönemi"
               />
               <FormControlLabel
-                value="roman"
+                value="bahar"
                 control={<Radio />}
-                label="Roman"
+                label="Bahar Dönemi"
               />
             </RadioGroup>
           </FormControl>
@@ -260,4 +260,4 @@ const AddBookForm = () => {
   );
 };
 
-export default AddBookForm;
+export default AddNoteForm;

@@ -15,6 +15,12 @@ export const fetchBookById = createAsyncThunk(
   }
 );
 
+export const addBook = createAsyncThunk("books/addBook", async (data) => {
+  const url = `http://localhost:5000/api/book`;
+  const res = await axios.post(url, data);
+  return res.data.data;
+});
+
 export const booksSlice = createSlice({
   name: "books",
   initialState: {
@@ -31,17 +37,19 @@ export const booksSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    // Fetch Books
     [fetchBooks.pending]: (state) => {
-      state.loading = true;
+      state.books.loading = true;
     },
     [fetchBooks.fulfilled]: (state, action) => {
-      state.books = action.payload;
-      state.loading = false;
+      state.books.data = action.payload;
+      state.books.loading = false;
     },
     [fetchBooks.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+      state.books.loading = false;
+      state.books.error = action.error.message;
     },
+    // Fetch Book By Id
     [fetchBookById.pending]: (state) => {
       state.book.status = "loading";
     },
@@ -52,6 +60,11 @@ export const booksSlice = createSlice({
     [fetchBookById.rejected]: (state, action) => {
       state.book.status = "failed";
       state.book.error = action.error.message;
+    },
+    // Add Book
+    [addBook.fulfilled]: (state, action) => {
+      // state.books.data.push(action.payload);
+      console.log(action.payload);
     },
   },
 });

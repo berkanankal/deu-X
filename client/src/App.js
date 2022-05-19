@@ -29,6 +29,7 @@ import MyNoteAds from "./components/User/Profile/MyNoteAds";
 import AddHousemateForm from "./components/User/Profile/MyHousemateAds/AddHousemateForm";
 import AddBookForm from "./components/User/Profile/MyBookAds/AddBookForm";
 import AddThingForm from "./components/User/Profile/MyThingAds/AddThingForm/AddThingForm";
+import AddNoteForm from "./components/User/Profile/MyNoteAds/AddNoteForm";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ const App = () => {
             <Route path="mybookads" element={<MyBookAds />} />
             <Route path="mybookads/add" element={<AddBookForm />} />
             <Route path="mynoteads" element={<MyNoteAds />} />
+            <Route path="mynoteads/add" element={<AddNoteForm />} />
           </Route>
         </Route>
         <Route path="dashboard" element={<Dashboard />}>

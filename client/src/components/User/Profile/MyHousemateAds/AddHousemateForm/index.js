@@ -80,11 +80,11 @@ const AddHousemateForm = () => {
 
   return (
     <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <FormControl>
             <RadioGroup
-              row
+              col
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="typeOfHousemate"
               onChange={onChangeOtherInput}

@@ -7,7 +7,7 @@ import { fetchBooks } from "../../../redux/booksSlice";
 
 const Books = () => {
   const dispatch = useDispatch();
-  const { books, loading, error } = useSelector((state) => state.books);
+  const { books } = useSelector((state) => state.books);
 
   const [selectedItems, setSelectedItems] = useState({
     selectedCity: 0,
@@ -67,10 +67,10 @@ const Books = () => {
       </Grid>
       <Grid item xs={9}>
         <Grid container spacing={2}>
-          {loading ? (
+          {books.loading ? (
             <div>Loading...</div>
-          ) : books.length > 0 ? (
-            books.map((book) => (
+          ) : books.data.length > 0 ? (
+            books.data.map((book) => (
               <Grid key={book._id} item xs={3}>
                 <Book book={book} />
               </Grid>
@@ -80,7 +80,7 @@ const Books = () => {
           )}
         </Grid>
 
-        {books.length > 0 && (
+        {books.data.length > 0 && (
           <Pagination
             count={10}
             size="large"

@@ -8,11 +8,12 @@ import {
   Button,
 } from "@mui/material";
 import Ceza from "../../../../images/ceza.jpg";
+import { Link } from "react-router-dom";
 
 const MyNoteAds = () => {
   return (
     <>
-      <Button variant="contained" sx={{ mb: 3 }}>
+      <Button component={Link} to="add" variant="contained" sx={{ mb: 3 }}>
         Not ilanı ver
       </Button>
       <Grid container spacing={2}>

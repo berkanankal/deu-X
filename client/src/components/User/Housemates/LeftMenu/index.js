@@ -72,8 +72,6 @@ const LeftMenu = ({ selectedItems, setSelectedItems }) => {
     });
   };
 
-  console.log(selectedItems);
-
   return (
     <Box>
       <List className={classes.list}>

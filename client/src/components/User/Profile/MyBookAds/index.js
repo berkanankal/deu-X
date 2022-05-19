@@ -12,9 +12,11 @@ const MyBookAds = () => {
   console.log(books);
 
   useEffect(() => {
-    const url = "http://localhost:5000/api/book";
-    dispatch(fetchBooks(url));
-  }, [dispatch]);
+    if (books.status === "idle") {
+      const url = "http://localhost:5000/api/book";
+      dispatch(fetchBooks(url));
+    }
+  }, [dispatch, books.status]);
 
   return (
     <>

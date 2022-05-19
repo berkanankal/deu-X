@@ -7,7 +7,15 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: "#757ce8",
+      main: "#7b1fa2",
+      dark: "#002884",
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

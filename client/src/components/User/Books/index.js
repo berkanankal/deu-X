@@ -67,7 +67,7 @@ const Books = () => {
       </Grid>
       <Grid item xs={9}>
         <Grid container spacing={2}>
-          {books.loading ? (
+          {books.status === "loading" ? (
             <div>Loading...</div>
           ) : books.data.length > 0 ? (
             books.data.map((book) => (

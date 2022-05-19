@@ -30,6 +30,7 @@ import AddHousemateForm from "./components/User/Profile/MyHousemateAds/AddHousem
 import AddBookForm from "./components/User/Profile/MyBookAds/AddBookForm";
 import AddThingForm from "./components/User/Profile/MyThingAds/AddThingForm/AddThingForm";
 import AddNoteForm from "./components/User/Profile/MyNoteAds/AddNoteForm";
+import Home from "./components/User/Home";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const App = () => {
           element={!user ? <Register /> : <Navigate to="/" />}
         />
         <Route path="/" element={<User />}>
-          <Route index element={<Housemates />} />
+          <Route index element={<Home />} />
           <Route path="notlar" element={<Notes />} />
           <Route path="notlar/:id" element={<NoteDetails />} />
           <Route path="kitaplar" element={<Books />} />

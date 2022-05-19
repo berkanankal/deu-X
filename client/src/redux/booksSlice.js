@@ -26,7 +26,7 @@ export const booksSlice = createSlice({
   initialState: {
     books: {
       data: [],
-      loading: false,
+      status: "idle",
       error: null,
     },
     book: {
@@ -39,14 +39,14 @@ export const booksSlice = createSlice({
   extraReducers: {
     // Fetch Books
     [fetchBooks.pending]: (state) => {
-      state.books.loading = true;
+      state.books.status = "loading";
     },
     [fetchBooks.fulfilled]: (state, action) => {
       state.books.data = action.payload;
-      state.books.loading = false;
+      state.books.status = "succeeded";
     },
     [fetchBooks.rejected]: (state, action) => {
-      state.books.loading = false;
+      state.books.status = "failed";
       state.books.error = action.error.message;
     },
     // Fetch Book By Id
@@ -63,7 +63,7 @@ export const booksSlice = createSlice({
     },
     // Add Book
     [addBook.fulfilled]: (state, action) => {
-      // state.books.data.push(action.payload);
+      state.books.data.push(action.payload);
       console.log(action.payload);
     },
   },

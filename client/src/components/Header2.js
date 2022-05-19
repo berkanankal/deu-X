@@ -13,6 +13,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { useSelector, useDispatch } from "react-redux";
@@ -89,7 +90,7 @@ const Header2 = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="primary">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Button
@@ -99,7 +100,7 @@ const Header2 = () => {
             className={classes.logo}
           >
             <Typography variant="h6" noWrap component="div">
-              LOGO
+              <SchoolIcon fontSize="large" />
             </Typography>
           </Button>
           <Box className={classes.menuIcon}>

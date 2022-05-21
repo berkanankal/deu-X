@@ -6,10 +6,9 @@ import { fetchThings } from "../../../redux/thingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Things = () => {
-  const items = [1, 2, 3, 4, 5, 6];
   const dispatch = useDispatch();
 
-  const { things, loading, error } = useSelector((state) => state.things);
+  const { things } = useSelector((state) => state.things);
 
   const [selectedItems, setSelectedItems] = useState({
     selectedCity: 0,
@@ -66,10 +65,10 @@ const Things = () => {
       </Grid>
       <Grid item xs={9}>
         <Grid container spacing={2}>
-          {loading ? (
+          {things.status === "loading" ? (
             <div>Loading...</div>
-          ) : things.length > 0 ? (
-            things.map((thing) => (
+          ) : things.data.length > 0 ? (
+            things.data.map((thing) => (
               <Grid item xs={3} key={thing._id}>
                 <Thing key={thing._id} thing={thing} />
               </Grid>

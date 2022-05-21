@@ -3,7 +3,26 @@ const asyncHandler = require("express-async-handler");
 
 const addThing = asyncHandler(async (req, res) => {
   const data = req.body;
-  const thing = await Thing.create(data);
+  const response = await Thing.create(data);
+
+  const thing = await Thing.findOne({ _id: response._id })
+    .populate({
+      path: "city",
+      select: "name",
+    })
+    .populate({
+      path: "university",
+      select: "name",
+    })
+    .populate({
+      path: "faculty",
+      select: "name",
+    })
+    .populate({
+      path: "department",
+      select: "name",
+    });
+
   res.status(201).json({
     success: true,
     data: thing,

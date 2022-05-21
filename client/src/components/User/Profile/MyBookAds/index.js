@@ -9,8 +9,6 @@ const MyBookAds = () => {
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.books);
 
-  console.log(books);
-
   useEffect(() => {
     if (books.status === "idle") {
       const url = "http://localhost:5000/api/book";

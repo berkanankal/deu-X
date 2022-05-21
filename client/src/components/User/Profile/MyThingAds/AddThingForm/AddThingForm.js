@@ -12,9 +12,12 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCities } from "../../../../../redux/citiesSlice";
 import { fetchThingCategories } from "../../../../../redux/thingCategoriesSlice";
+import { addThing } from "../../../../../redux/thingsSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddThingForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { cities } = useSelector((state) => state.cities);
   const { thingCategories } = useSelector((state) => state.thingCategories);
@@ -75,7 +78,8 @@ const AddThingForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(addThing(formData));
+    navigate("/profile/mythingads");
   };
 
   return (

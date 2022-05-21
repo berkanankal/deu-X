@@ -18,12 +18,20 @@ export const fetchThingById = createAsyncThunk(
   }
 );
 
+export const addThing = createAsyncThunk("things/addThing", async (data) => {
+  const url = `http://localhost:5000/api/thing`;
+  const res = await axios.post(url, data);
+  return res.data.data;
+});
+
 export const thingsSlice = createSlice({
   name: "things",
   initialState: {
-    things: [],
-    loading: false,
-    error: null,
+    things: {
+      data: [],
+      status: "idle",
+      error: null,
+    },
     thing: {
       data: {},
       status: "idle",
@@ -32,17 +40,19 @@ export const thingsSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    // Fetch Things
     [fetchThings.pending]: (state) => {
-      state.loading = true;
+      state.things.status = "loading";
     },
     [fetchThings.fulfilled]: (state, action) => {
-      state.things = action.payload;
-      state.loading = false;
+      state.things.data = action.payload;
+      state.things.status = "succeeded";
     },
     [fetchThings.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+      state.things.status = "failed";
+      state.things.error = action.error.message;
     },
+    // Fetch Thing By Id
     [fetchThingById.pending]: (state) => {
       state.thing.status = "loading";
     },
@@ -53,6 +63,10 @@ export const thingsSlice = createSlice({
     [fetchThingById.rejected]: (state, action) => {
       state.thing.status = "failed";
       state.thing.error = action.error.message;
+    },
+    // Add Thing
+    [addThing.fulfilled]: (state, action) => {
+      state.things.data.push(action.payload);
     },
   },
 });

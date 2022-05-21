@@ -3,7 +3,26 @@ const asyncHandler = require("express-async-handler");
 
 const addHousemate = asyncHandler(async (req, res) => {
   const data = req.body;
-  const housemate = await Housemate.create(data);
+  const response = await Housemate.create(data);
+
+  const housemate = await Housemate.findOne({ _id: response._id })
+    .populate({
+      path: "city",
+      select: "name",
+    })
+    .populate({
+      path: "university",
+      select: "name",
+    })
+    .populate({
+      path: "faculty",
+      select: "name",
+    })
+    .populate({
+      path: "department",
+      select: "name",
+    });
+
   res.status(201).json({
     success: true,
     data: housemate,

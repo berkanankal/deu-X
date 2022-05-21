@@ -21,6 +21,10 @@ const addThing = asyncHandler(async (req, res) => {
     .populate({
       path: "department",
       select: "name",
+    })
+    .populate({
+      path: "category",
+      select: "name",
     });
 
   res.status(201).json({

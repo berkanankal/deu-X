@@ -18,12 +18,21 @@ export const fetchHousemateById = createAsyncThunk(
   }
 );
 
+export const addHousemate = createAsyncThunk(
+  "housemates/addHousemate",
+  async (data) => {
+    const url = `http://localhost:5000/api/housemate`;
+    const res = await axios.post(url, data);
+    return res.data.data;
+  }
+);
+
 export const housematesSlice = createSlice({
   name: "housemates",
   initialState: {
     housemates: {
       data: [],
-      loading: false,
+      status: "idle",
       error: null,
     },
     housemate: {
@@ -34,17 +43,19 @@ export const housematesSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    // Fetch Housemates
     [fetchHousemates.pending]: (state) => {
-      state.housemates.loading = true;
+      state.housemates.status = "loading";
     },
     [fetchHousemates.fulfilled]: (state, action) => {
       state.housemates.data = action.payload;
-      state.housemates.loading = false;
+      state.housemates.status = "succeeded";
     },
     [fetchHousemates.rejected]: (state, action) => {
-      state.housemates.loading = false;
+      state.housemates.status = "failed";
       state.housemates.error = action.error.message;
     },
+    // Fetch Housemate By Id
     [fetchHousemateById.pending]: (state) => {
       state.housemate.status = "loading";
     },
@@ -55,6 +66,10 @@ export const housematesSlice = createSlice({
     [fetchHousemateById.rejected]: (state, action) => {
       state.housemate.status = "failed";
       state.housemate.error = action.error.message;
+    },
+    // Add Housemate
+    [addHousemate.fulfilled]: (state, action) => {
+      state.housemates.data.push(action.payload);
     },
   },
 });

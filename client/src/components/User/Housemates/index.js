@@ -55,7 +55,7 @@ const Housemates = () => {
       </Grid>
       <Grid item xs={9}>
         <Grid container spacing={2}>
-          {housemates.loading ? (
+          {housemates.status === "loading" ? (
             <div>Loading...</div>
           ) : housemates.data.length > 0 ? (
             housemates.data.map((housemate) => (

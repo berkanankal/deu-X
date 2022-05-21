@@ -13,9 +13,12 @@ import {
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCities } from "../../../../../redux/citiesSlice";
+import { addHousemate } from "../../../../../redux/housematesSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddHousemateForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { cities } = useSelector((state) => state.cities);
 
@@ -73,7 +76,8 @@ const AddHousemateForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(addHousemate(formData));
+    navigate("/profile/myhousemateads");
   };
 
   return (
@@ -82,7 +86,6 @@ const AddHousemateForm = () => {
         <Grid item xs={12}>
           <FormControl>
             <RadioGroup
-              col
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="typeOfHousemate"
               onChange={onChangeOtherInput}

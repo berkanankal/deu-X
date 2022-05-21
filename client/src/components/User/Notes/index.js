@@ -79,7 +79,7 @@ const Notes = () => {
       </Grid>
       <Grid item xs={9}>
         <Grid container spacing={2}>
-          {notes.loading ? (
+          {notes.status === "loading" ? (
             <div>Loading...</div>
           ) : notes.data.length > 0 ? (
             notes.data.map((note) => (

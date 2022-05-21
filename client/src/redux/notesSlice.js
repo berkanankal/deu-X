@@ -15,12 +15,18 @@ export const fetchNoteById = createAsyncThunk(
   }
 );
 
+export const addNote = createAsyncThunk("notes/addNote", async (data) => {
+  const url = `http://localhost:5000/api/note`;
+  const res = await axios.post(url, data);
+  return res.data.data;
+});
+
 export const notesSlice = createSlice({
   name: "notes",
   initialState: {
     notes: {
       data: [],
-      loading: false,
+      status: "idle",
       error: null,
     },
     note: {
@@ -31,17 +37,19 @@ export const notesSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    // Fetch Notes
     [fetchNotes.pending]: (state) => {
-      state.notes.loading = true;
+      state.notes.status = "loading";
     },
     [fetchNotes.fulfilled]: (state, action) => {
       state.notes.data = action.payload;
-      state.notes.loading = false;
+      state.notes.status = "succeeded";
     },
     [fetchNotes.rejected]: (state, action) => {
-      state.notes.loading = false;
+      state.notes.status = "failed";
       state.notes.error = action.error.message;
     },
+    // Fetch Note By Id
     [fetchNoteById.pending]: (state) => {
       state.note.status = "loading";
     },
@@ -52,6 +60,10 @@ export const notesSlice = createSlice({
     [fetchNoteById.rejected]: (state, action) => {
       state.note.status = "failed";
       state.note.error = action.error.message;
+    },
+    // Add Note
+    [addNote.fulfilled]: (state, action) => {
+      state.notes.data.push(action.payload);
     },
   },
 });

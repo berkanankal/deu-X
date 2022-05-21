@@ -15,9 +15,12 @@ import {
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCities } from "../../../../../redux/citiesSlice";
+import { addNote } from "../../../../../redux/notesSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddNoteForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { cities } = useSelector((state) => state.cities);
 
@@ -77,7 +80,8 @@ const AddNoteForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(addNote(formData));
+    navigate("/profile/mynoteads");
   };
 
   return (

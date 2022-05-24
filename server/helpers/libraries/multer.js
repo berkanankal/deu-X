@@ -12,6 +12,9 @@ const storage = multer.diskStorage({
     if (file.fieldname === "book_image") {
       cb(null, path.join(rootDir, "/public/uploads/books"));
     }
+    if (file.fieldname === "note_image") {
+      cb(null, path.join(rootDir, "/public/uploads/notes"));
+    }
   },
   filename: function (req, file, cb) {
     const random = uuidv4();

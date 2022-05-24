@@ -16,6 +16,7 @@ const Book = ({ book }) => {
         component="img"
         src={`http://localhost:5000/uploads/books/${book.book_image}`}
         alt="book_image"
+        height="300"
       />
       <CardContent>
         <Typography sx={{ fontSize: 18, fontWeight: "bold" }} component="div">
@@ -29,6 +30,12 @@ const Book = ({ book }) => {
         <Button component={Link} to={`${book._id}`} size="small">
           Detay
         </Button>
+        <Typography
+          sx={{ fontSize: 18, fontWeight: "bold", marginLeft: "auto" }}
+          component="div"
+        >
+          {book.price} TL
+        </Typography>
       </CardActions>
     </Card>
   );

@@ -31,7 +31,7 @@ const NoteSchema = new Schema({
     ref: "Department",
     required: true,
   },
-  image: {
+  note_image: {
     type: String,
     default: "default.jpg",
   },

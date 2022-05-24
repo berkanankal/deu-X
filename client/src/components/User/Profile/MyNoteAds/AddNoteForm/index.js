@@ -38,6 +38,7 @@ const AddNoteForm = () => {
     department: 0,
     class: "",
     semester: "",
+    note_image: "",
   });
 
   const onChangeOtherInput = (e) => {
@@ -80,16 +81,35 @@ const AddNoteForm = () => {
     }
   };
 
+  const handlePhoto = (e) => {
+    setFormData({
+      ...formData,
+      note_image: e.target.files[0],
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addNote(formData));
+
+    const newNote = new FormData();
+    newNote.append("user", formData.user);
+    newNote.append("name", formData.name);
+    newNote.append("city", formData.city);
+    newNote.append("university", formData.university);
+    newNote.append("faculty", formData.faculty);
+    newNote.append("department", formData.department);
+    newNote.append("class", formData.class);
+    newNote.append("semester", formData.semester);
+    newNote.append("note_image", formData.note_image);
+
+    dispatch(addNote(newNote));
     navigate("/profile/mynoteads");
   };
 
   return (
     <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <TextField
             autoComplete="given-name"
             name="name"
@@ -98,6 +118,15 @@ const AddNoteForm = () => {
             label="Not İsmi"
             onChange={onChangeOtherInput}
           />
+        </Grid>
+        <Grid item xs={6}>
+          <div>
+            <input
+              style={{ width: "97%", margin: "15px 0" }}
+              type="file"
+              onChange={handlePhoto}
+            />
+          </div>
         </Grid>
 
         <Grid item xs={6}>

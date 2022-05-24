@@ -16,6 +16,7 @@ const Thing = ({ thing }) => {
         component="img"
         src={`http://localhost:5000/uploads/things/${thing.thing_image}`}
         alt="thing_image"
+        height={200}
       />
       <CardContent>
         <Typography sx={{ fontSize: 18, fontWeight: "bold" }} component="div">

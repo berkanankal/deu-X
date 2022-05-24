@@ -26,7 +26,7 @@ const pages = [
   },
   { name: "Eşya", path: "/esyalar" },
   { name: "Kitap", path: "/kitaplar" },
-  { name: "Not", path: "/notlar" },
+  { name: "Ders Notu", path: "/notlar" },
 ];
 
 const useStyles = makeStyles((theme) => ({

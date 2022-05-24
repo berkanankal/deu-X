@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 
-const pages = ["Ev Arkadaşı", "Eşya", "Kitap", "Not"];
+const pages = ["Ev Arkadaşı", "Eşya", "Kitap", "Ders Notu"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {

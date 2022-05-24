@@ -9,12 +9,14 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import Ceza from "../../../../images/ceza.jpg";
-
 const Note = ({ note }) => {
   return (
     <Card>
-      <CardMedia component="img" src={Ceza} alt="ceza" />
+      <CardMedia
+        component="img"
+        src={`http://localhost:5000/uploads/notes/${note.note_image}`}
+        alt="note_image"
+      />
       <CardContent>
         <Typography sx={{ fontSize: 18, fontWeight: "bold" }} component="div">
           {note.name}

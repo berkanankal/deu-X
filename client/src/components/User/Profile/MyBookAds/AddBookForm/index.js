@@ -33,6 +33,7 @@ const AddBookForm = () => {
     user: user.id,
     name: "",
     author: "",
+    price: "",
     city: 0,
     university: 0,
     faculty: 0,
@@ -95,6 +96,7 @@ const AddBookForm = () => {
     newBook.append("user", formData.user);
     newBook.append("name", formData.name);
     newBook.append("author", formData.author);
+    newBook.append("price", formData.price);
     newBook.append("city", formData.city);
     newBook.append("university", formData.university);
     newBook.append("faculty", formData.faculty);
@@ -129,7 +131,16 @@ const AddBookForm = () => {
             onChange={onChangeOtherInput}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
+          <TextField
+            type="number"
+            name="price"
+            fullWidth
+            label="Fiyat"
+            onChange={onChangeOtherInput}
+          />
+        </Grid>
+        <Grid item xs={6}>
           <div>
             <input
               style={{ width: "97%", margin: "15px 0" }}

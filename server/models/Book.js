@@ -15,6 +15,10 @@ const BookSchema = new Schema({
     type: String,
     required: [true, "Author is required"],
   },
+  price: {
+    type: Number,
+    required: [true, "Price is required"],
+  },
   city: {
     type: Schema.Types.ObjectId,
     ref: "City",

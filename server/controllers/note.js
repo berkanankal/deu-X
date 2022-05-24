@@ -4,6 +4,10 @@ const asyncHandler = require("express-async-handler");
 const addNote = asyncHandler(async (req, res) => {
   const data = req.body;
 
+  if (req.savedImage) {
+    data.note_image = req.savedImage;
+  }
+
   const response = await Note.create(data);
 
   const note = await Note.findOne({ _id: response._id })

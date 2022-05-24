@@ -15,8 +15,6 @@ const BookDetails = () => {
     dispatch(fetchBookById(id));
   }, [dispatch, id]);
 
-  console.log(book);
-
   return (
     <>
       {book.status === "loading" && <div>Loading...</div>}

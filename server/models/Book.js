@@ -35,7 +35,7 @@ const BookSchema = new Schema({
     ref: "Department",
     required: true,
   },
-  image: {
+  book_image: {
     type: String,
     default: "default.jpg",
   },

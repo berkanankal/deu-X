@@ -3,6 +3,11 @@ const asyncHandler = require("express-async-handler");
 
 const addBook = asyncHandler(async (req, res) => {
   const data = req.body;
+
+  if (req.savedImage) {
+    data.book_image = req.savedImage;
+  }
+
   const response = await Book.create(data);
 
   const book = await Book.findOne({ _id: response._id })

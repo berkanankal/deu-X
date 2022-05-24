@@ -7,13 +7,16 @@ import {
   Typography,
   CardMedia,
 } from "@mui/material";
-import Ybs from "../../../../images/ybs.jpg";
 import { Link } from "react-router-dom";
 
 const Book = ({ book }) => {
   return (
     <Card>
-      <CardMedia component="img" src={Ybs} alt="ceza" />
+      <CardMedia
+        component="img"
+        src={`http://localhost:5000/uploads/books/${book.book_image}`}
+        alt="book_image"
+      />
       <CardContent>
         <Typography sx={{ fontSize: 18, fontWeight: "bold" }} component="div">
           {book.name}

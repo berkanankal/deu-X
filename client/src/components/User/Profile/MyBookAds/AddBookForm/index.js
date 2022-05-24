@@ -38,6 +38,7 @@ const AddBookForm = () => {
     faculty: 0,
     department: 0,
     typeOfBook: "",
+    book_image: "",
   });
 
   const onChangeOtherInput = (e) => {
@@ -80,9 +81,28 @@ const AddBookForm = () => {
     }
   };
 
+  const handlePhoto = (e) => {
+    setFormData({
+      ...formData,
+      book_image: e.target.files[0],
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addBook(formData));
+
+    const newBook = new FormData();
+    newBook.append("user", formData.user);
+    newBook.append("name", formData.name);
+    newBook.append("author", formData.author);
+    newBook.append("city", formData.city);
+    newBook.append("university", formData.university);
+    newBook.append("faculty", formData.faculty);
+    newBook.append("department", formData.department);
+    newBook.append("typeOfBook", formData.typeOfBook);
+    newBook.append("book_image", formData.book_image);
+
+    dispatch(addBook(newBook));
     navigate("/profile/mybookads");
   };
 
@@ -109,7 +129,15 @@ const AddBookForm = () => {
             onChange={onChangeOtherInput}
           />
         </Grid>
-
+        <Grid item xs={12}>
+          <div>
+            <input
+              style={{ width: "97%", margin: "15px 0" }}
+              type="file"
+              onChange={handlePhoto}
+            />
+          </div>
+        </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Şehir</InputLabel>

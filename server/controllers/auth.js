@@ -68,4 +68,19 @@ const deleteAllUsers = async (req, res) => {
   });
 };
 
-module.exports = { register, login, getUser, deleteAllUsers };
+const imageUpload = asyncHandler(async (req, res, next) => {
+  // const { user } = req;
+
+  // const { profile_image } = req.file;
+
+  // user.profile_image = profile_image;
+
+  // await user.save();
+
+  return res.status(200).json({
+    success: "true",
+    message: "Profile image upload successful",
+  });
+});
+
+module.exports = { register, login, getUser, deleteAllUsers, imageUpload };

@@ -8,6 +8,9 @@ import { fetchBooks } from "../../../../redux/booksSlice";
 const MyBookAds = () => {
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.books);
+  const user = useSelector((state) => state.auth.user);
+
+  const filteredBooks = books.data.filter((book) => book.user === user.id);
 
   useEffect(() => {
     if (books.status === "idle") {
@@ -22,7 +25,7 @@ const MyBookAds = () => {
         Kitap ilanı ver
       </Button>
       <Grid container spacing={2}>
-        {books.data.map((book) => (
+        {filteredBooks.map((book) => (
           <Grid item xs={12} key={book._id}>
             <Book book={book} />
           </Grid>

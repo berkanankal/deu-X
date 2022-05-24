@@ -9,6 +9,9 @@ const MyNoteAds = () => {
   const dispatch = useDispatch();
 
   const { notes } = useSelector((state) => state.notes);
+  const user = useSelector((state) => state.auth.user);
+
+  const filteredNotes = notes.data.filter((note) => note.user === user.id);
 
   useEffect(() => {
     if (notes.status === "idle") {
@@ -23,7 +26,7 @@ const MyNoteAds = () => {
         Not ilanı ver
       </Button>
       <Grid container spacing={2}>
-        {notes.data.map((note) => (
+        {filteredNotes.map((note) => (
           <Grid item xs={12} key={note._id}>
             <Note note={note} />
           </Grid>

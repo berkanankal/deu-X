@@ -16,21 +16,8 @@ const Note = ({ note }) => {
     <Card>
       <CardMedia component="img" src={Ceza} alt="ceza" />
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {note.university.name}
-        </Typography>
         <Typography sx={{ fontSize: 18, fontWeight: "bold" }} component="div">
           {note.name}
-        </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {note.faculty.name}
-        </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {note.department.name}
-        </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary">
-          {note.class}. Sınıf /{" "}
-          {note.semester === "bahar" ? "Bahar Dönemi" : "Güz Dönemi"}
         </Typography>
       </CardContent>
       <CardActions>

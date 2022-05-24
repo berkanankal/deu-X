@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const HousemateSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   city: {
     type: Schema.Types.ObjectId,
     ref: "City",

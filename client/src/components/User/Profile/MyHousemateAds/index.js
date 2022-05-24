@@ -8,6 +8,11 @@ import Housemate from "./Housemate";
 const MyHousemateAds = () => {
   const dispatch = useDispatch();
   const { housemates } = useSelector((state) => state.housemates);
+  const user = useSelector((state) => state.auth.user);
+
+  const filteredHousemates = housemates.data.filter(
+    (housemate) => housemate.user === user.id
+  );
 
   useEffect(() => {
     if (housemates.status === "idle") {
@@ -22,7 +27,7 @@ const MyHousemateAds = () => {
         Ev arkadaşı ilanı ver
       </Button>
       <Grid container spacing={2}>
-        {housemates.data.map((housemate) => (
+        {filteredHousemates.map((housemate) => (
           <Grid item xs={12} key={housemate._id}>
             <Housemate housemate={housemate} />
           </Grid>

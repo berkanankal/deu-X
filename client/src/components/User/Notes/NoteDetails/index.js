@@ -31,10 +31,10 @@ const NoteDetails = () => {
                   color="text.secondary"
                   gutterBottom
                 >
-                  {note.data.name}
+                  {note.data.city.name}
                 </Typography>
                 <Typography variant="h5" component="div">
-                  {note.data.city.name}
+                  {note.data.name}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                   {note.data.university.name}
@@ -45,8 +45,12 @@ const NoteDetails = () => {
                 <Typography variant="body2">
                   {note.data.department.name}
                 </Typography>
-                <Typography variant="body2">{note.data.class}</Typography>
-                <Typography variant="body2">{note.data.semester}</Typography>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                  {note.data.class}. Sınıf /{" "}
+                  {note.data.semester === "bahar"
+                    ? "Bahar Dönemi"
+                    : "Güz Dönemi"}
+                </Typography>
               </CardContent>
             </Grid>
           </Grid>

@@ -33,12 +33,18 @@ const ThingDetails = () => {
                   color="text.secondary"
                   gutterBottom
                 >
-                  {thing.data.name}
-                </Typography>
-                <Typography variant="h5" component="div">
                   {thing.data.city.name}
                 </Typography>
+                <Typography variant="h5" component="div">
+                  {thing.data.name}
+                </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                  {thing.data.description}
+                </Typography>
+                <Typography variant="body2">
+                  {thing.data.price} TL
+                </Typography>
+                <Typography variant="body2">
                   {thing.data.university.name}
                 </Typography>
                 <Typography variant="body2">
@@ -46,9 +52,6 @@ const ThingDetails = () => {
                 </Typography>
                 <Typography variant="body2">
                   {thing.data.department.name}
-                </Typography>
-                <Typography variant="body2">
-                  {thing.data.category.name}
                 </Typography>
               </CardContent>
             </Grid>

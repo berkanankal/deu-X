@@ -33,13 +33,15 @@ const BookDetails = () => {
                   color="text.secondary"
                   gutterBottom
                 >
-                  {book.data.name}
-                </Typography>
-                <Typography variant="body2">{book.data.author}</Typography>
-                <Typography variant="h5" component="div">
                   {book.data.city.name}
                 </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                <Typography variant="h5" component="div">
+                  {book.data.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" gutterBottom>
+                  {book.data.author}
+                </Typography>
+                <Typography variant="body2">
                   {book.data.university.name}
                 </Typography>
                 <Typography variant="body2">
@@ -48,8 +50,6 @@ const BookDetails = () => {
                 <Typography variant="body2">
                   {book.data.department.name}
                 </Typography>
-
-                <Typography variant="body2">{book.data.typeOfBook}</Typography>
               </CardContent>
             </Grid>
           </Grid>

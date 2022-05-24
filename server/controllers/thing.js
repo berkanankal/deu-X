@@ -1,8 +1,13 @@
 const Thing = require("../models/Thing");
 const asyncHandler = require("express-async-handler");
 
-const addThing = asyncHandler(async (req, res) => {
+const addThing = asyncHandler(async (req, res, next) => {
   const data = req.body;
+
+  if (req.savedImage) {
+    data.thing_image = req.savedImage;
+  }
+
   const response = await Thing.create(data);
 
   const thing = await Thing.findOne({ _id: response._id })

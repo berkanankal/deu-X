@@ -4,10 +4,11 @@ const {
   getAllThings,
   getThingById,
 } = require("../controllers/thing");
+const imageUpload = require("../helpers/libraries/multer");
 
 const router = express.Router();
 
-router.post("/", addThing);
+router.post("/", imageUpload.single("thing_image"), addThing);
 router.get("/", getAllThings);
 router.get("/:id", getThingById);
 

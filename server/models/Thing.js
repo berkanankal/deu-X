@@ -2,9 +2,22 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const ThingSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   name: {
     type: String,
     required: [true, "Name is required"],
+  },
+  description: {
+    type: String,
+    required: [true, "Description is required"],
+  },
+  price: {
+    type: Number,
+    required: [true, "Price is required"],
   },
   city: {
     type: Schema.Types.ObjectId,
@@ -26,7 +39,7 @@ const ThingSchema = new Schema({
     ref: "Department",
     required: true,
   },
-  image: {
+  thing_image: {
     type: String,
     default: "default.jpg",
   },

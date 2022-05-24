@@ -18,11 +18,14 @@ export const fetchThingById = createAsyncThunk(
   }
 );
 
-export const addThing = createAsyncThunk("things/addThing", async (data) => {
-  const url = `http://localhost:5000/api/thing`;
-  const res = await axios.post(url, data);
-  return res.data.data;
-});
+export const addThing = createAsyncThunk(
+  "things/addThing",
+  async (newThing) => {
+    const url = `http://localhost:5000/api/thing`;
+    const res = await axios.post(url, newThing);
+    return res.data.data;
+  }
+);
 
 export const thingsSlice = createSlice({
   name: "things",

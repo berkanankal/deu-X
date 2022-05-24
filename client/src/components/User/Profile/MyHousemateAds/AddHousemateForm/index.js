@@ -21,12 +21,14 @@ const AddHousemateForm = () => {
   const navigate = useNavigate();
 
   const { cities } = useSelector((state) => state.cities);
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     dispatch(fetchCities());
   }, [dispatch]);
 
   const [formData, setFormData] = useState({
+    user: user.id,
     city: 0,
     university: 0,
     faculty: 0,

@@ -8,6 +8,9 @@ import Thing from "./Thing";
 const MyThingAds = () => {
   const dispatch = useDispatch();
   const { things } = useSelector((state) => state.things);
+  const user = useSelector((state) => state.auth.user);
+
+  const filteredThings = things.data.filter((thing) => thing.user === user.id);
 
   useEffect(() => {
     if (things.status === "idle") {
@@ -22,7 +25,7 @@ const MyThingAds = () => {
         Eşya ilanı ver
       </Button>
       <Grid container spacing={2}>
-        {things.data.map((thing) => (
+        {filteredThings.map((thing) => (
           <Grid item xs={12} key={thing._id}>
             <Thing thing={thing} />
           </Grid>

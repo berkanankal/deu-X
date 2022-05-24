@@ -23,12 +23,14 @@ const AddBookForm = () => {
   const navigate = useNavigate();
 
   const { cities } = useSelector((state) => state.cities);
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     dispatch(fetchCities());
   }, [dispatch]);
 
   const [formData, setFormData] = useState({
+    user: user.id,
     name: "",
     author: "",
     city: 0,

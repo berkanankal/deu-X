@@ -21,32 +21,37 @@ const AddThingForm = () => {
 
   const { cities } = useSelector((state) => state.cities);
   const { thingCategories } = useSelector((state) => state.thingCategories);
+  const user = useSelector((state) => state.auth.user);
+
+  const [newThing, setNewThing] = useState({
+    user: user.id,
+    name: "",
+    description: "",
+    price: "",
+    city: 0,
+    university: 0,
+    faculty: 0,
+    department: 0,
+    category: 0,
+    thing_image: "",
+  });
 
   useEffect(() => {
     dispatch(fetchCities());
     dispatch(fetchThingCategories());
   }, [dispatch]);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    city: 0,
-    university: 0,
-    faculty: 0,
-    department: 0,
-    category: 0,
-  });
-
   const onChangeOtherInput = (e) => {
-    setFormData({
-      ...formData,
+    setNewThing({
+      ...newThing,
       [e.target.name]: e.target.value,
     });
   };
 
   const onChangeSelectInput = (e) => {
     if (e.target.name === "city") {
-      setFormData({
-        ...formData,
+      setNewThing({
+        ...newThing,
         city: e.target.value,
         university: 0,
         faculty: 0,
@@ -54,36 +59,56 @@ const AddThingForm = () => {
       });
     }
     if (e.target.name === "university") {
-      setFormData({
-        ...formData,
+      setNewThing({
+        ...newThing,
         university: e.target.value,
         faculty: 0,
         department: 0,
       });
     }
     if (e.target.name === "faculty") {
-      setFormData({
-        ...formData,
+      setNewThing({
+        ...newThing,
         faculty: e.target.value,
         department: 0,
       });
     }
     if (e.target.name === "department") {
-      setFormData({
-        ...formData,
+      setNewThing({
+        ...newThing,
         department: e.target.value,
       });
     }
   };
 
+  const handlePhoto = (e) => {
+    setNewThing({
+      ...newThing,
+      thing_image: e.target.files[0],
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("user", newThing.user);
+    formData.append("name", newThing.name);
+    formData.append("description", newThing.description);
+    formData.append("price", newThing.price);
+    formData.append("city", newThing.city);
+    formData.append("university", newThing.university);
+    formData.append("faculty", newThing.faculty);
+    formData.append("department", newThing.department);
+    formData.append("category", newThing.category);
+    formData.append("thing_image", newThing.thing_image);
+
     dispatch(addThing(formData));
     navigate("/profile/mythingads");
   };
 
   return (
-    <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
+    <Box onSubmit={handleSubmit} component="form" noValidate sx={{ mt: 3 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -103,7 +128,7 @@ const AddThingForm = () => {
               id="demo-simple-select"
               label="Kategori"
               name="category"
-              value={formData.category}
+              value={newThing.category}
               onChange={onChangeOtherInput}
             >
               <MenuItem value={0} disabled>
@@ -117,7 +142,34 @@ const AddThingForm = () => {
             </Select>
           </FormControl>
         </Grid>
-
+        <Grid item xs={4}>
+          <TextField
+            label="Açıklama"
+            name="description"
+            multiline
+            fullWidth
+            maxRows={4}
+            onChange={onChangeOtherInput}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            type="number"
+            name="price"
+            fullWidth
+            label="Fiyat"
+            onChange={onChangeOtherInput}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <div>
+            <input
+              style={{ width: "97%", margin: "15px 0" }}
+              type="file"
+              onChange={handlePhoto}
+            />
+          </div>
+        </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Şehir</InputLabel>
@@ -127,7 +179,7 @@ const AddThingForm = () => {
               label="Şehir"
               name="city"
               onChange={onChangeSelectInput}
-              value={formData.city}
+              value={newThing.city}
             >
               <MenuItem value={0} disabled>
                 Seçiniz
@@ -141,7 +193,7 @@ const AddThingForm = () => {
           </FormControl>
         </Grid>
         <Grid item xs={6}>
-          <FormControl fullWidth disabled={formData.city === 0}>
+          <FormControl fullWidth disabled={newThing.city === 0}>
             <InputLabel id="demo-simple-select-label">Üniversite</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -149,7 +201,7 @@ const AddThingForm = () => {
               label="Üniversite"
               name="university"
               onChange={onChangeSelectInput}
-              value={formData.university}
+              value={newThing.university}
             >
               <MenuItem value={0} disabled>
                 Seçiniz
@@ -157,7 +209,7 @@ const AddThingForm = () => {
               {cities.map((city) =>
                 city.universities.map(
                   (university) =>
-                    university.city === formData.city && (
+                    university.city === newThing.city && (
                       <MenuItem key={university._id} value={university._id}>
                         {university.name}
                       </MenuItem>
@@ -170,7 +222,7 @@ const AddThingForm = () => {
         <Grid item xs={6}>
           <FormControl
             fullWidth
-            disabled={formData.university === 0 || formData.city === 0}
+            disabled={newThing.university === 0 || newThing.city === 0}
           >
             <InputLabel id="demo-simple-select-label">Fakülte</InputLabel>
             <Select
@@ -179,7 +231,7 @@ const AddThingForm = () => {
               label="Fakülte"
               name="faculty"
               onChange={onChangeSelectInput}
-              value={formData.faculty}
+              value={newThing.faculty}
             >
               <MenuItem value={0} disabled>
                 Seçiniz
@@ -188,7 +240,7 @@ const AddThingForm = () => {
                 city.universities.map((university) =>
                   university.faculties.map(
                     (faculty) =>
-                      faculty.university === formData.university && (
+                      faculty.university === newThing.university && (
                         <MenuItem key={faculty._id} value={faculty._id}>
                           {faculty.name}
                         </MenuItem>
@@ -203,9 +255,9 @@ const AddThingForm = () => {
           <FormControl
             fullWidth
             disabled={
-              formData.university === 0 ||
-              formData.city === 0 ||
-              formData.faculty === 0
+              newThing.university === 0 ||
+              newThing.city === 0 ||
+              newThing.faculty === 0
             }
           >
             <InputLabel id="demo-simple-select-label">Bölüm</InputLabel>
@@ -215,7 +267,7 @@ const AddThingForm = () => {
               label="Bölüm"
               name="department"
               onChange={onChangeSelectInput}
-              value={formData.department}
+              value={newThing.department}
             >
               <MenuItem value={0} disabled>
                 Seçiniz
@@ -225,7 +277,7 @@ const AddThingForm = () => {
                   university.faculties.map((faculty) =>
                     faculty.departments.map(
                       (department) =>
-                        department.faculty === formData.faculty && (
+                        department.faculty === newThing.faculty && (
                           <MenuItem key={department._id} value={department._id}>
                             {department.name}
                           </MenuItem>

@@ -22,13 +22,15 @@ const AddNoteForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { cities } = useSelector((state) => state.cities);
-
   useEffect(() => {
     dispatch(fetchCities());
   }, [dispatch]);
 
+  const { cities } = useSelector((state) => state.cities);
+  const user = useSelector((state) => state.auth.user);
+
   const [formData, setFormData] = useState({
+    user: user.id,
     name: "",
     city: 0,
     university: 0,

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Grid, Pagination } from "@mui/material";
 import LeftMenu from "./LeftMenu";
 import Note from "./Note";
+import Loading from "../../Loading";
+import DataNotFound from "../../DataNotFound";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNotes } from "../../../redux/notesSlice";
 
@@ -78,19 +80,18 @@ const Notes = () => {
         />
       </Grid>
       <Grid item xs={9}>
+        {notes.status === "loading" && <Loading />}
         <Grid container spacing={2}>
-          {notes.status === "loading" ? (
-            <div>Loading...</div>
-          ) : notes.data.length > 0 ? (
+          {notes.status === "succeeded" &&
             notes.data.map((note) => (
-              <Grid item xs={3} key={note._id}>
+              <Grid key={note._id} item xs={3}>
                 <Note note={note} />
               </Grid>
-            ))
-          ) : (
-            <div>Not yok</div>
-          )}
+            ))}
         </Grid>
+        {notes.status === "succeeded" && notes.data.length < 1 && (
+          <DataNotFound message="Ders notu bulunamadı" />
+        )}
 
         {notes.data.length > 0 && (
           <Pagination

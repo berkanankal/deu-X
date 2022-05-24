@@ -26,6 +26,12 @@ const Note = ({ note }) => {
         <Button size="small" component={Link} to={`${note._id}`}>
           Detay
         </Button>
+        <Typography
+          sx={{ fontSize: 18, fontWeight: "bold", marginLeft: "auto" }}
+          component="div"
+        >
+          {note.price} TL
+        </Typography>
       </CardActions>
     </Card>
   );

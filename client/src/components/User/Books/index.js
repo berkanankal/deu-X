@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Grid, Pagination } from "@mui/material";
 import LeftMenu from "./LeftMenu";
 import Book from "./Book";
+import Loading from "../../Loading";
+import DataNotFound from "../../DataNotFound";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../../../redux/booksSlice";
 
@@ -66,19 +68,18 @@ const Books = () => {
         />
       </Grid>
       <Grid item xs={9}>
+        {books.status === "loading" && <Loading />}
         <Grid container spacing={2}>
-          {books.status === "loading" ? (
-            <div>Loading...</div>
-          ) : books.data.length > 0 ? (
+          {books.status === "succeeded" &&
             books.data.map((book) => (
               <Grid key={book._id} item xs={3}>
                 <Book book={book} />
               </Grid>
-            ))
-          ) : (
-            <div>Kitap yok</div>
-          )}
+            ))}
         </Grid>
+        {books.status === "succeeded" && books.data.length < 1 && (
+          <DataNotFound message="Kitap bulunamadı" />
+        )}
 
         {books.data.length > 0 && (
           <Pagination

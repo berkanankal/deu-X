@@ -11,6 +11,10 @@ const NoteSchema = new Schema({
     type: String,
     required: [true, "Name is required"],
   },
+  price: {
+    type: Number,
+    required: [true, "Price is required"],
+  },
   city: {
     type: Schema.Types.ObjectId,
     ref: "City",

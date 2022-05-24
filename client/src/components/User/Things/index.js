@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Grid, Pagination } from "@mui/material";
 import LeftMenu from "./LeftMenu";
 import Thing from "./Thing";
+import Loading from "../../Loading";
+import DataNotFound from "../../DataNotFound";
 import { fetchThings } from "../../../redux/thingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -64,19 +66,18 @@ const Things = () => {
         />
       </Grid>
       <Grid item xs={9}>
+        {things.status === "loading" && <Loading />}
         <Grid container spacing={2}>
-          {things.status === "loading" ? (
-            <div>Loading...</div>
-          ) : things.data.length > 0 ? (
+          {things.status === "succeeded" &&
             things.data.map((thing) => (
-              <Grid item xs={3} key={thing._id}>
-                <Thing key={thing._id} thing={thing} />
+              <Grid key={thing._id} item xs={3}>
+                <Thing thing={thing} />
               </Grid>
-            ))
-          ) : (
-            <div>Eşya yok</div>
-          )}
+            ))}
         </Grid>
+        {things.status === "succeeded" && things.data.length < 1 && (
+          <DataNotFound message="Eşya bulunamadı" />
+        )}
 
         {things.length > 0 && (
           <Pagination

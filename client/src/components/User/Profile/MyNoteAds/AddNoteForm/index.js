@@ -32,6 +32,7 @@ const AddNoteForm = () => {
   const [formData, setFormData] = useState({
     user: user.id,
     name: "",
+    price: "",
     city: 0,
     university: 0,
     faculty: 0,
@@ -94,6 +95,7 @@ const AddNoteForm = () => {
     const newNote = new FormData();
     newNote.append("user", formData.user);
     newNote.append("name", formData.name);
+    newNote.append("price", formData.price);
     newNote.append("city", formData.city);
     newNote.append("university", formData.university);
     newNote.append("faculty", formData.faculty);
@@ -109,13 +111,22 @@ const AddNoteForm = () => {
   return (
     <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <TextField
             autoComplete="given-name"
             name="name"
             fullWidth
             id="name"
             label="Not İsmi"
+            onChange={onChangeOtherInput}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            type="number"
+            name="price"
+            fullWidth
+            label="Fiyat"
             onChange={onChangeOtherInput}
           />
         </Grid>

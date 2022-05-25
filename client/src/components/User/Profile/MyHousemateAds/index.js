@@ -11,7 +11,7 @@ const MyHousemateAds = () => {
   const user = useSelector((state) => state.auth.user);
 
   const filteredHousemates = housemates.data.filter(
-    (housemate) => housemate.user === user.id
+    (housemate) => housemate.user._id === user.id
   );
 
   useEffect(() => {
@@ -23,8 +23,21 @@ const MyHousemateAds = () => {
 
   return (
     <>
-      <Button component={Link} to="add" variant="contained" sx={{ mb: 3 }}>
-        Ev arkadaşı ilanı ver
+      <Button
+        component={Link}
+        to="friendstomyhouse"
+        variant="contained"
+        sx={{ mb: 3, mr: 2 }}
+      >
+        Evime arkadaş arıyorum
+      </Button>
+      <Button
+        component={Link}
+        to="placetostay"
+        variant="contained"
+        sx={{ mb: 3 }}
+      >
+        Kalacak yer arıyorum
       </Button>
       <Grid container spacing={2}>
         {filteredHousemates.map((housemate) => (

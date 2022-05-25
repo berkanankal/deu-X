@@ -32,6 +32,10 @@ const addHousemate = asyncHandler(async (req, res) => {
 const getAllHousemates = asyncHandler(async (req, res) => {
   let query = Housemate.find()
     .populate({
+      path: "user",
+      select: "name",
+    })
+    .populate({
       path: "city",
       select: "name",
     })

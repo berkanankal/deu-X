@@ -1,6 +1,12 @@
 import { useEffect } from "react";
-import { Card, CardContent, Typography, CardMedia, Grid } from "@mui/material";
-import Raspberry from "../../../../images/raspberry.jpg";
+import {
+  Card,
+  CardContent,
+  Typography,
+  CardMedia,
+  Grid,
+  CardActions,
+} from "@mui/material";
 import { fetchThingById } from "../../../../redux/thingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -24,7 +30,11 @@ const ThingDetails = () => {
         {thing.status === "succeeded" && (
           <Grid container spacing={2}>
             <Grid item xs={3}>
-              <CardMedia component="img" src={Raspberry} alt="ceza" />
+              <CardMedia
+                component="img"
+                src={`http://localhost:5000/uploads/things/${thing.data.thing_image}`}
+                alt="thing_image"
+              />
             </Grid>
             <Grid item xs={9}>
               <CardContent>
@@ -42,9 +52,6 @@ const ThingDetails = () => {
                   {thing.data.description}
                 </Typography>
                 <Typography variant="body2">
-                  {thing.data.price} TL
-                </Typography>
-                <Typography variant="body2">
                   {thing.data.university.name}
                 </Typography>
                 <Typography variant="body2">
@@ -53,7 +60,18 @@ const ThingDetails = () => {
                 <Typography variant="body2">
                   {thing.data.department.name}
                 </Typography>
+                <Typography variant="body2">
+                  Kategori: {thing.data.category.name}
+                </Typography>
               </CardContent>
+              <CardActions>
+                <Typography
+                  sx={{ fontSize: 18, fontWeight: "bold", marginLeft: "auto" }}
+                  component="div"
+                >
+                  {thing.data.price} TL
+                </Typography>
+              </CardActions>
             </Grid>
           </Grid>
         )}

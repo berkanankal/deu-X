@@ -1,6 +1,12 @@
 import { useEffect } from "react";
-import { Card, CardContent, Typography, CardMedia, Grid } from "@mui/material";
-import Ceza from "../../../../images/ceza.jpg";
+import {
+  Card,
+  CardContent,
+  Typography,
+  CardMedia,
+  Grid,
+  CardActions,
+} from "@mui/material";
 import { fetchNoteById } from "../../../../redux/notesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -22,7 +28,11 @@ const NoteDetails = () => {
         {note.status === "succeeded" && (
           <Grid container spacing={2}>
             <Grid item xs={3}>
-              <CardMedia component="img" src={Ceza} alt="ceza" />
+              <CardMedia
+                component="img"
+                src={`http://localhost:5000/uploads/notes/${note.data.note_image}`}
+                alt="note_image"
+              />
             </Grid>
             <Grid item xs={9}>
               <CardContent>
@@ -52,6 +62,18 @@ const NoteDetails = () => {
                     : "Güz Dönemi"}
                 </Typography>
               </CardContent>
+              <CardActions>
+                <Typography
+                  sx={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    marginLeft: "auto",
+                  }}
+                  component="div"
+                >
+                  {note.data.price} TL
+                </Typography>
+              </CardActions>
             </Grid>
           </Grid>
         )}

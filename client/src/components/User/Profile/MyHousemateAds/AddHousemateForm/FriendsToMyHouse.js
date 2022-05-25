@@ -8,15 +8,16 @@ import {
   Select,
   MenuItem,
   FormControlLabel,
-  RadioGroup,
-  Radio,
+  FormGroup,
+  Checkbox,
+  TextField,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCities } from "../../../../../redux/citiesSlice";
 import { addHousemate } from "../../../../../redux/housematesSlice";
 import { useNavigate } from "react-router-dom";
 
-const AddHousemateForm = () => {
+const FriendsToMyHouse = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,17 +30,32 @@ const AddHousemateForm = () => {
 
   const [formData, setFormData] = useState({
     user: user.id,
+    details: "",
+    rent: "",
     city: 0,
     university: 0,
     faculty: 0,
     department: 0,
-    typeOfHousemate: "",
+    typeOfHousemate: "2",
+    cigarette: false,
+    alcohol: false,
+    vegetarian: false,
+    vegan: false,
+    child: false,
+    pet: false,
   });
 
   const onChangeOtherInput = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const onChangeCheckbox = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.checked,
     });
   };
 
@@ -85,25 +101,71 @@ const AddHousemateForm = () => {
   return (
     <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <FormControl>
-            <RadioGroup
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="typeOfHousemate"
-              onChange={onChangeOtherInput}
-            >
-              <FormControlLabel
-                value="1"
-                control={<Radio />}
-                label="Kalacak ev arıyorum"
-              />
-              <FormControlLabel
-                value="2"
-                control={<Radio />}
-                label="Evime arkadaş arıyorum"
-              />
-            </RadioGroup>
-          </FormControl>
+        <Grid item xs={4}>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Sigara kullanıyorum"
+              name="cigarette"
+              onChange={onChangeCheckbox}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Alkol kullanıyorum"
+              name="alcohol"
+              onChange={onChangeCheckbox}
+            />
+          </FormGroup>
+        </Grid>
+        <Grid item xs={4}>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Veganım"
+              name="vegan"
+              onChange={onChangeCheckbox}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Vejetaryenim"
+              name="vegetarian"
+              onChange={onChangeCheckbox}
+            />
+          </FormGroup>
+        </Grid>
+        <Grid item xs={4}>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Çocuğum var"
+              name="child"
+              onChange={onChangeCheckbox}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Evcil hayvanım var"
+              name="pet"
+              onChange={onChangeCheckbox}
+            />
+          </FormGroup>
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            multiline
+            label="Detaylar"
+            name="details"
+            onChange={onChangeOtherInput}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            type="number"
+            label="Ev kirası"
+            name="rent"
+            onChange={onChangeOtherInput}
+          />
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
@@ -233,4 +295,4 @@ const AddHousemateForm = () => {
   );
 };
 
-export default AddHousemateForm;
+export default FriendsToMyHouse;

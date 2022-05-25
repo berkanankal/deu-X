@@ -25,16 +25,29 @@ const Housemate = ({ housemate }) => {
               color="text.secondary"
               gutterBottom
             >
-              {housemate.city.name}
+              {housemate.city.name} - {housemate.university.name}
             </Typography>
-            <Typography variant="body2">{housemate.university.name}</Typography>
             <Typography variant="h5" component="div">
-              {housemate.faculty.name}
+              {housemate.user.name}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {housemate.department.name}
+            <Typography variant="body2">
+              {housemate.typeOfHousemate === "1"
+                ? "Kalacak ev arıyorum"
+                : "Evime arkadaş arıyorum"}
             </Typography>
-            <Typography variant="body2">{housemate.typeOfHousemate}</Typography>
+            <Typography variant="body2">
+              {housemate.typeOfHousemate === "1"
+                ? `Maksimum ${housemate.rent} TL kira verebilirim`
+                : `Ev kirası ${housemate.rent} TL`}
+            </Typography>
+            <Typography variant="body2">
+              {housemate.cigarette && "Sigara kullanıyorum - "}
+              {housemate.alcohol && "Alkol kullanıyorum - "}
+              {housemate.vegetarian && "Vejetaryenim - "}
+              {housemate.vegan && "Veganım - "}
+              {housemate.child && "Çocuğum var - "}
+              {housemate.pet && "Evcil hayvanım var - "}
+            </Typography>
           </CardContent>
           <CardActions>
             <Button component={Link} to={`${housemate._id}`} size="small">

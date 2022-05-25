@@ -26,11 +26,12 @@ import MyHousemateAds from "./components/User/Profile/MyHousemateAds";
 import MyThingAds from "./components/User/Profile/MyThingAds";
 import MyBookAds from "./components/User/Profile/MyBookAds";
 import MyNoteAds from "./components/User/Profile/MyNoteAds";
-import AddHousemateForm from "./components/User/Profile/MyHousemateAds/AddHousemateForm";
 import AddBookForm from "./components/User/Profile/MyBookAds/AddBookForm";
 import AddThingForm from "./components/User/Profile/MyThingAds/AddThingForm/AddThingForm";
 import AddNoteForm from "./components/User/Profile/MyNoteAds/AddNoteForm";
 import Home from "./components/User/Home";
+import FriendsToMyHouse from "./components/User/Profile/MyHousemateAds/AddHousemateForm/FriendsToMyHouse";
+import PlaceToStay from "./components/User/Profile/MyHousemateAds/AddHousemateForm/PlaceToStay";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -62,7 +63,14 @@ const App = () => {
           <Route path="profile" element={<Profile />}>
             <Route index element={<AccountInfo />} />
             <Route path="myhousemateads" element={<MyHousemateAds />} />
-            <Route path="myhousemateads/add" element={<AddHousemateForm />} />
+            <Route
+              path="myhousemateads/friendstomyhouse"
+              element={<FriendsToMyHouse />}
+            />
+            <Route
+              path="myhousemateads/placetostay"
+              element={<PlaceToStay />}
+            />
             <Route path="mythingads" element={<MyThingAds />} />
             <Route path="mythingads/add" element={<AddThingForm />} />
             <Route path="mybookads" element={<MyBookAds />} />

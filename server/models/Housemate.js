@@ -7,6 +7,14 @@ const HousemateSchema = new Schema({
     ref: "User",
     required: true,
   },
+  details: {
+    type: String,
+    required: [true, "Details is required"],
+  },
+  rent: {
+    type: Number,
+    required: [true, "Rent is required"],
+  },
   city: {
     type: Schema.Types.ObjectId,
     ref: "City",
@@ -37,6 +45,30 @@ const HousemateSchema = new Schema({
     default: "1",
     // 1: kalacak ev arıyorum
     // 2: evime arkadaş arıyorum
+  },
+  cigarette: {
+    type: Boolean,
+    default: false,
+  },
+  alcohol: {
+    type: Boolean,
+    default: false,
+  },
+  vegetarian: {
+    type: Boolean,
+    default: false,
+  },
+  vegan: {
+    type: Boolean,
+    default: false,
+  },
+  child: {
+    type: Boolean,
+    default: false,
+  },
+  pet: {
+    type: Boolean,
+    default: false,
   },
 });
 

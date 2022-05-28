@@ -73,7 +73,7 @@ const Housemates = () => {
 
         {housemates.data.length > 0 && (
           <Pagination
-            count={10}
+            count={1}
             size="large"
             variant="outlined"
             color="primary"
@@ -81,7 +81,7 @@ const Housemates = () => {
               marginTop: 100,
               marginBottom: 100,
               position: "relative",
-              left: "25%",
+              left: "40%",
             }}
           />
         )}

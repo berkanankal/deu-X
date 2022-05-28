@@ -6,6 +6,10 @@ import {
   Button,
   Grid,
   Box,
+  FormControl,
+  FormHelperText,
+  RadioGroup,
+  Radio,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -29,6 +33,12 @@ let registerSchema = yup.object().shape({
     .string()
     .required("Zorunlu alan")
     .oneOf([yup.ref("password")], "Parolalar uyuşmuyor"),
+  yearOfBirth: yup
+    .number()
+    .min(1900, "Lütfen 1900'den büyük değer girin")
+    .max(2022, "Lütfen 2022'den küçük değer girin")
+    .required("Zorunlu alan"),
+  gender: yup.string().required("Zorunlu alan"),
 });
 
 const RegisterForm = () => {
@@ -52,6 +62,8 @@ const RegisterForm = () => {
         email: "",
         password: "",
         confirmPassword: "",
+        gender: "",
+        yearOfBirth: "",
       },
       validationSchema: registerSchema,
       onSubmit: (values) => {
@@ -148,6 +160,47 @@ const RegisterForm = () => {
               error={
                 errors.confirmPassword && touched.confirmPassword ? true : false
               }
+              onBlur={handleBlur}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={6} sx={{ mt: 1 }}>
+            <FormControl onBlur={handleBlur}>
+              <RadioGroup
+                row
+                name="gender"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              >
+                <FormControlLabel
+                  value="female"
+                  control={<Radio />}
+                  label="Kadın"
+                />
+                <FormControlLabel
+                  value="male"
+                  control={<Radio />}
+                  label="Erkek"
+                />
+              </RadioGroup>
+              <FormHelperText
+                error={errors.gender && touched.gender ? true : false}
+              >
+                {errors.gender && touched.gender && errors.gender}
+              </FormHelperText>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              type="number"
+              required
+              fullWidth
+              label="Doğum Yılı"
+              name="yearOfBirth"
+              helperText={
+                errors.yearOfBirth && touched.yearOfBirth && errors.yearOfBirth
+              }
+              error={errors.yearOfBirth && touched.yearOfBirth ? true : false}
               onBlur={handleBlur}
               onChange={handleChange}
             />

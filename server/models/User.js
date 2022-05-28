@@ -28,6 +28,15 @@ const UserSchema = new Schema({
     minlength: [6, "Password must be at least 6 characters"],
     select: false,
   },
+  gender: {
+    type: String,
+    enum: ["male", "female"],
+    required: [true, "Gender is required"],
+  },
+  yearOfBirth: {
+    type: Number,
+    required: [true, "Year of birth is required"],
+  },
   role: {
     type: String,
     enum: ["user", "admin"],
@@ -67,7 +76,7 @@ UserSchema.pre("save", function (next) {
   if (!this.isModified("password")) {
     return next();
   }
-  
+
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);
     bcrypt.hash(this.password, salt, (err, hash) => {

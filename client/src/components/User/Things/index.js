@@ -79,9 +79,9 @@ const Things = () => {
           <DataNotFound message="Eşya bulunamadı" />
         )}
 
-        {things.length > 0 && (
+        {things.data.length > 0 && (
           <Pagination
-            count={10}
+            count={1}
             size="large"
             variant="outlined"
             color="primary"
@@ -89,7 +89,7 @@ const Things = () => {
               marginTop: 100,
               marginBottom: 100,
               position: "relative",
-              left: "25%",
+              left: "40%",
             }}
           />
         )}

@@ -95,7 +95,7 @@ const Notes = () => {
 
         {notes.data.length > 0 && (
           <Pagination
-            count={10}
+            count={1}
             size="large"
             variant="outlined"
             color="primary"
@@ -103,7 +103,7 @@ const Notes = () => {
               marginTop: 100,
               marginBottom: 100,
               position: "relative",
-              left: "25%",
+              left: "40%",
             }}
           />
         )}

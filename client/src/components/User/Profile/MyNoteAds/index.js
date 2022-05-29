@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchNotes } from "../../../../redux/notesSlice";
 import Note from "./Note";
+import DataNotFound from "../../../DataNotFound";
 
 const MyNoteAds = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ const MyNoteAds = () => {
           </Grid>
         ))}
       </Grid>
+      {notes.status === "succeeded" && filteredNotes.length < 1 && (
+        <DataNotFound message="Not ilanı bulunamadı" />
+      )}
     </>
   );
 };

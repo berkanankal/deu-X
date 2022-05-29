@@ -10,6 +10,7 @@ import {
 import { fetchNoteById } from "../../../../redux/notesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Loading from "../../../Loading";
 
 const NoteDetails = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const NoteDetails = () => {
 
   return (
     <>
-      {note.status === "loading" && <div>Loading...</div>}
+      {note.status === "loading" && <Loading />}
       <Card sx={{ minWidth: 275 }}>
         {note.status === "succeeded" && (
           <Grid container spacing={2}>

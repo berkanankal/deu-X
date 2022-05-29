@@ -64,7 +64,6 @@ export const booksSlice = createSlice({
     // Add Book
     [addBook.fulfilled]: (state, action) => {
       state.books.data.push(action.payload);
-      console.log(action.payload);
     },
   },
 });

@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchHousemates } from "../../../../redux/housematesSlice";
 import Housemate from "./Housemate";
+import DataNotFound from "../../../DataNotFound";
 
 const MyHousemateAds = () => {
   const dispatch = useDispatch();
   const { housemates } = useSelector((state) => state.housemates);
   const user = useSelector((state) => state.auth.user);
+
+  console.log(housemates);
 
   const filteredHousemates = housemates.data.filter(
     (housemate) => housemate.user._id === user.id
@@ -46,6 +49,9 @@ const MyHousemateAds = () => {
           </Grid>
         ))}
       </Grid>
+      {housemates.status === "succeeded" && filteredHousemates.length < 1 && (
+        <DataNotFound message="Ev arkadaşı ilanı bulunamadı" />
+      )}
     </>
   );
 };

@@ -8,7 +8,6 @@ import {
   CardMedia,
   Grid,
 } from "@mui/material";
-import User from "../../../../images/user.jpg";
 import { Link } from "react-router-dom";
 
 const Housemate = ({ housemate }) => {
@@ -16,7 +15,11 @@ const Housemate = ({ housemate }) => {
     <Card sx={{ minWidth: 275 }}>
       <Grid container spacing={2}>
         <Grid item xs={3}>
-          <CardMedia component="img" src={User} alt="ceza" />
+          <CardMedia
+            component="img"
+            src={`http://localhost:5000/${housemate.user.gender}.png`}
+            alt="housemate-img"
+          />
         </Grid>
         <Grid item xs={9}>
           <CardContent>

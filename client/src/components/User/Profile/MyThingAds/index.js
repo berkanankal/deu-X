@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchThings } from "../../../../redux/thingsSlice";
 import Thing from "./Thing";
+import DataNotFound from "../../../DataNotFound";
 
 const MyThingAds = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ const MyThingAds = () => {
           </Grid>
         ))}
       </Grid>
+      {things.status === "succeeded" && filteredThings.length < 1 && (
+        <DataNotFound message="Eşya ilanı bulunamadı" />
+      )}
     </>
   );
 };

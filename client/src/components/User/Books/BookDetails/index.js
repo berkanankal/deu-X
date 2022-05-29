@@ -10,6 +10,7 @@ import {
 import { fetchBookById } from "../../../../redux/booksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Loading from "../../../Loading";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const BookDetails = () => {
 
   return (
     <>
-      {book.status === "loading" && <div>Loading...</div>}
+      {book.status === "loading" && <Loading />}
       <Card sx={{ minWidth: 275 }}>
         {book.status === "succeeded" && (
           <Grid container spacing={2}>

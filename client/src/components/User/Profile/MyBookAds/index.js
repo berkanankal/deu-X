@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Book from "./Book";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBooks } from "../../../../redux/booksSlice";
+import DataNotFound from "../../../DataNotFound";
 
 const MyBookAds = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ const MyBookAds = () => {
           </Grid>
         ))}
       </Grid>
+
+      {books.status === "succeeded" && filteredBooks.length < 1 && (
+        <DataNotFound message="Kitap ilanı bulunamadı" />
+      )}
     </>
   );
 };

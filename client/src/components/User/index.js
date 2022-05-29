@@ -1,12 +1,12 @@
 import React from "react";
-import Header2 from "../Header2";
+import Header from "../Header";
 import Container from "@mui/material/Container";
 import { Outlet } from "react-router-dom";
 
 const User = () => {
   return (
     <>
-      <Header2 />
+      <Header />
       <Container sx={{ mt: 5 }}>
         <Outlet />
       </Container>

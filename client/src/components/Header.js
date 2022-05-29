@@ -1,24 +1,73 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import { useState } from "react";
+import {
+  Box,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@mui/styles";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/authSlice";
 
-const pages = ["Ev Arkadaşı", "Eşya", "Kitap", "Ders Notu"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = [
+  {
+    name: "Ev Arkadaşı",
+    path: "/evarkadaslari",
+  },
+  { name: "Eşya", path: "/esyalar" },
+  { name: "Kitap", path: "/kitaplar" },
+  { name: "Ders Notu", path: "/notlar" },
+];
+
+const useStyles = makeStyles((theme) => ({
+  logo: {
+    [theme.breakpoints.down("md")]: {
+      order: 2,
+      flexGrow: 1,
+    },
+  },
+  middleNav: {
+    display: "flex",
+    marginLeft: theme.spacing(2),
+    flexGrow: 1,
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+  },
+  loginRegister: {
+    display: "flex",
+    order: 3,
+    alignItems: "center",
+  },
+  menuIcon: {
+    flexGrow: 1,
+    order: 1,
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
+  },
+  profile: {
+    order: 4,
+  },
+}));
 
 const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
+  const classes = useStyles();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,20 +84,26 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+    handleCloseUserMenu();
+  };
+
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="primary">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+          <Button
+            sx={{ color: "white" }}
+            component={Link}
+            to="/"
+            className={classes.logo}
           >
-            LOGO
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Typography variant="h6" noWrap component="div">
+              <SchoolIcon fontSize="large" />
+            </Typography>
+          </Button>
+          <Box className={classes.menuIcon}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -78,78 +133,93 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+
+          <Box className={classes.middleNav}>
             {pages.map((page) => (
               <Button
                 component={Link}
-                to="/notlar"
-                key={page}
+                color="inherit"
+                to={page.path}
+                key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ display: "flex" }}>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Giriş Yap
-            </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Kayıt Ol
-            </Button>
-          </Box>
+          {!user && (
+            <Box className={classes.loginRegister}>
+              <Button
+                component={Link}
+                to="/login"
+                onClick={handleCloseNavMenu}
+                color="inherit"
+              >
+                Giriş Yap
+              </Button>
+              <Button
+                component={Link}
+                to="/register"
+                onClick={handleCloseNavMenu}
+                color="inherit"
+              >
+                Kayıt Ol
+              </Button>
+            </Box>
+          )}
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+          {user && (
+            <Box className={classes.profile}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar>{user.name.charAt(0).toUpperCase()}</Avatar>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem
+                  component={Link}
+                  to="/profile"
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography textAlign="center">Profil</Typography>
                 </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+                {user.role === "admin" && (
+                  <MenuItem
+                    component={Link}
+                    to="/dashboard"
+                    onClick={handleCloseUserMenu}
+                  >
+                    <Typography textAlign="center">Dashboard</Typography>
+                  </MenuItem>
+                )}
+                <MenuItem component={Link} to="/" onClick={handleLogout}>
+                  <Typography textAlign="center">Çıkış yap</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

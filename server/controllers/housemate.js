@@ -7,6 +7,10 @@ const addHousemate = asyncHandler(async (req, res) => {
 
   const housemate = await Housemate.findOne({ _id: response._id })
     .populate({
+      path: "user",
+      select: "name gender yearOfBirth",
+    })
+    .populate({
       path: "city",
       select: "name",
     })
@@ -33,7 +37,7 @@ const getAllHousemates = asyncHandler(async (req, res) => {
   let query = Housemate.find()
     .populate({
       path: "user",
-      select: "name",
+      select: "name gender yearOfBirth",
     })
     .populate({
       path: "city",
@@ -82,6 +86,10 @@ const getAllHousemates = asyncHandler(async (req, res) => {
 
 const getHousemateById = asyncHandler(async (req, res) => {
   const housemate = await Housemate.findById(req.params.id)
+    .populate({
+      path: "user",
+      select: "name gender yearOfBirth",
+    })
     .populate({
       path: "city",
       select: "name",

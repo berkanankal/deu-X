@@ -12,8 +12,6 @@ const Housemates = () => {
 
   const { housemates } = useSelector((state) => state.housemates);
 
-  console.log(housemates);
-
   const [selectedItems, setSelectedItems] = useState({
     selectedCity: 0,
     selectedUniversity: 0,

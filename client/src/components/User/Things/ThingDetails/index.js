@@ -10,6 +10,7 @@ import {
 import { fetchThingById } from "../../../../redux/thingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Loading from "../../../Loading";
 
 const ThingDetails = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const ThingDetails = () => {
 
   return (
     <>
-      {thing.status === "loading" && <div>Loading...</div>}
+      {thing.status === "loading" && <Loading />}
       <Card sx={{ minWidth: 275 }}>
         {thing.status === "succeeded" && (
           <Grid container spacing={2}>

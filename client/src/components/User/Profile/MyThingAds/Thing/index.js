@@ -6,7 +6,10 @@ import {
   CardMedia,
   Grid,
   CardActions,
+  IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Thing = ({ thing }) => {
   return (
@@ -44,11 +47,17 @@ const Thing = ({ thing }) => {
           </CardContent>
           <CardActions>
             <Typography
-              sx={{ fontSize: 18, fontWeight: "bold", marginLeft: "auto" }}
+              sx={{ fontSize: 18, fontWeight: "bold" }}
               component="div"
             >
               {thing.price} TL
             </Typography>
+            <IconButton color="warning" style={{ marginLeft: "auto" }}>
+              <EditIcon />
+            </IconButton>
+            <IconButton color="error">
+              <DeleteIcon />
+            </IconButton>
           </CardActions>
         </Grid>
       </Grid>

@@ -26,7 +26,7 @@ const HousemateDetails = () => {
             <Grid item xs={3}>
               <CardMedia
                 component="img"
-                src={`http://localhost:5000/${housemate.data.user.gender}.png`}
+                src={`/images/${housemate.data.user.gender}.png`}
                 alt="housemate-img"
               />
             </Grid>

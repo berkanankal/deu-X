@@ -1,5 +1,4 @@
 import React from "react";
-import Video from "../../../videos/video.mp4";
 import "./styles.css";
 
 const UserHome = () => {
@@ -10,7 +9,7 @@ const UserHome = () => {
           className="videoBg"
           width="400"
           autoPlay={true}
-          src={Video}
+          src="/videos/video.mp4"
           loop
           muted
           type="video/mp4"

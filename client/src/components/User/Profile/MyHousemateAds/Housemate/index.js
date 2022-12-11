@@ -18,7 +18,7 @@ const Housemate = ({ housemate }) => {
         <Grid item xs={3}>
           <CardMedia
             component="img"
-            src={`http://localhost:5000/${housemate.user.gender}.png`}
+            src={`/images/${housemate.user.gender}.png`}
             alt="housemate-img"
           />
         </Grid>
@@ -63,7 +63,7 @@ const Housemate = ({ housemate }) => {
             <Typography variant="body2">{housemate.details}</Typography>
           </CardContent>
           <CardActions>
-            <IconButton color="warning" style={{marginLeft: "auto"}}>
+            <IconButton color="warning" style={{ marginLeft: "auto" }}>
               <EditIcon />
             </IconButton>
             <IconButton color="error">

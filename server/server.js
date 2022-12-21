@@ -6,7 +6,9 @@ const customErrorHandler = require("./middlewares/error/customErrorHandler");
 const cors = require("cors");
 const path = require("path");
 
-dotenv.config();
+dotenv.config({
+  path: "./config/env/config.env",
+});
 
 const app = express();
 const PORT = process.env.PORT || 5000;

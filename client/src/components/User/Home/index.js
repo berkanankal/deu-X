@@ -19,15 +19,7 @@ const UserHome = () => {
         <h1 className="heroH1">
           Üniversite öğrencilerinin hayatı artık daha kolay!
         </h1>
-        <p className="heroP">
-          Sana uygun evi veya evine uygun arkadaşı bulmak ister misin?
-          <br />
-          İkinci el eşya, kitap ihtiyacın mı var?
-          <br />
-          Vizelerin ve finallerin için not bulmakta zorlanıyor musun?
-          <br />
-          Öyleyse aramıza hoşgeldin!
-        </p>
+        
       </div>
     </div>
   );

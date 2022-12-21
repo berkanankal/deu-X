@@ -52,14 +52,14 @@ const App = () => {
         />
         <Route path="/" element={<User />}>
           <Route index element={<Home />} />
-          <Route path="notlar" element={<Notes />} />
-          <Route path="notlar/:id" element={<NoteDetails />} />
-          <Route path="kitaplar" element={<Books />} />
-          <Route path="kitaplar/:id" element={<BookDetails />} />
-          <Route path="esyalar" element={<Things />} />
-          <Route path="esyalar/:id" element={<ThingDetails />} />
-          <Route path="evarkadaslari" element={<Housemates />} />
-          <Route path="evarkadaslari/:id" element={<HousemateDetails />} />
+          <Route path="notes" element={<Notes />} />
+          <Route path="notes/:id" element={<NoteDetails />} />
+          <Route path="books" element={<Books />} />
+          <Route path="books/:id" element={<BookDetails />} />
+          <Route path="things" element={<Things />} />
+          <Route path="things/:id" element={<ThingDetails />} />
+          <Route path="housemates" element={<Housemates />} />
+          <Route path="housemates/:id" element={<HousemateDetails />} />
           <Route path="profile" element={<Profile />}>
             <Route index element={<AccountInfo />} />
             <Route path="myhousemateads" element={<MyHousemateAds />} />

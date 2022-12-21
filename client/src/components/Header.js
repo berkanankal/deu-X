@@ -22,11 +22,11 @@ import { logout } from "../redux/authSlice";
 const pages = [
   {
     name: "Ev Arkadaşı",
-    path: "/evarkadaslari",
+    path: "/housemates",
   },
-  { name: "Eşya", path: "/esyalar" },
-  { name: "Kitap", path: "/kitaplar" },
-  { name: "Ders Notu", path: "/notlar" },
+  { name: "Eşya", path: "/things" },
+  { name: "Kitap", path: "/books" },
+  { name: "Ders Notu", path: "/notes" },
 ];
 
 const useStyles = makeStyles((theme) => ({

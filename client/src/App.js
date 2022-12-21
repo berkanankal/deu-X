@@ -45,12 +45,15 @@ const App = () => {
     <>
       <ToastContainer />
       <Routes>
-        <Route path="login" element={!user ? <Login /> : <Navigate to="/" />} />
-        <Route
-          path="register"
-          element={!user ? <Register /> : <Navigate to="/" />}
-        />
         <Route path="/" element={<User />}>
+          <Route
+            path="login"
+            element={!user ? <Login /> : <Navigate to="/" />}
+          />
+          <Route
+            path="register"
+            element={!user ? <Register /> : <Navigate to="/" />}
+          />
           <Route index element={<Home />} />
           <Route path="notes" element={<Notes />} />
           <Route path="notes/:id" element={<NoteDetails />} />

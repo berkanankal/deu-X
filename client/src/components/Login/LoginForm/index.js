@@ -97,7 +97,12 @@ const LoginForm = () => {
         control={<Checkbox value="remember" color="primary" />}
         label="Beni hatırla"
       />
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2, py: 1 }}
+      >
         Giriş Yap
       </Button>
       <Grid container>

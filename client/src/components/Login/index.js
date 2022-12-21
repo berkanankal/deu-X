@@ -3,10 +3,9 @@ import {
   Avatar,
   CssBaseline,
   Link,
-  Paper,
   Box,
-  Grid,
   Typography,
+  Container,
 } from "@mui/material";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -22,8 +21,8 @@ const Copyright = (props) => {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="#">
+        Deu-X
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -33,45 +32,26 @@ const Copyright = (props) => {
 
 const Login = () => {
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
+    <Container component="main" maxWidth="sm">
       <CssBaseline />
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
+      <Box
         sx={{
-          backgroundImage: "/images/loginLeft.jpg",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: (t) =>
-            t.palette.mode === "light"
-              ? t.palette.grey[50]
-              : t.palette.grey[900],
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Giriş Yap
-          </Typography>
-          <LoginForm />
-          <Copyright sx={{ mt: 5 }} />
-        </Box>
-      </Grid>
-    </Grid>
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Giriş Yap
+        </Typography>
+        <LoginForm />
+        <Copyright sx={{ mt: 5 }} />
+      </Box>
+    </Container>
   );
 };
 

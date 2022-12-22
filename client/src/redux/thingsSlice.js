@@ -1,31 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as API from "./api/things";
 
-export const fetchThings = createAsyncThunk(
-  "things/getAllThings",
-  async (url) => {
-    const res = await axios.get(url);
-    return res.data.data;
-  }
-);
+export const fetchThings = createAsyncThunk("things/getAllThings", (url) => {
+  return API.fetchThings(url);
+});
 
-export const fetchThingById = createAsyncThunk(
-  "things/getThingById",
-  async (id) => {
-    const url = `http://localhost:5000/api/thing/${id}`;
-    const res = await axios.get(url);
-    return res.data.data;
-  }
-);
+export const fetchThingById = createAsyncThunk("things/getThingById", (id) => {
+  return API.fetchThingById(id);
+});
 
-export const addThing = createAsyncThunk(
-  "things/addThing",
-  async (newThing) => {
-    const url = `http://localhost:5000/api/thing`;
-    const res = await axios.post(url, newThing);
-    return res.data.data;
-  }
-);
+export const addThing = createAsyncThunk("things/addThing", (newThing) => {
+  return API.addThing(newThing);
+});
 
 export const thingsSlice = createSlice({
   name: "things",

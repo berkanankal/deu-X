@@ -1,24 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as API from "./api/books";
 
-export const fetchBooks = createAsyncThunk("books/getAllBooks", async (url) => {
-  const res = await axios.get(url);
-  return res.data.data;
+export const fetchBooks = createAsyncThunk("books/getAllBooks", (url) => {
+  return API.fetchBooks(url);
 });
 
-export const fetchBookById = createAsyncThunk(
-  "books/getBookById",
-  async (id) => {
-    const url = `http://localhost:5000/api/book/${id}`;
-    const res = await axios.get(url);
-    return res.data.data;
-  }
-);
+export const fetchBookById = createAsyncThunk("books/getBookById", (id) => {
+  return API.fetchBookById(id);
+});
 
-export const addBook = createAsyncThunk("books/addBook", async (data) => {
-  const url = `http://localhost:5000/api/book`;
-  const res = await axios.post(url, data);
-  return res.data.data;
+export const addBook = createAsyncThunk("books/addBook", (data) => {
+  return API.addBook(data);
 });
 
 export const booksSlice = createSlice({

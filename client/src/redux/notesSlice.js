@@ -1,24 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as API from "./api/notes";
 
-export const fetchNotes = createAsyncThunk("notes/getAllNotes", async (url) => {
-  const res = await axios.get(url);
-  return res.data.data;
+export const fetchNotes = createAsyncThunk("notes/getAllNotes", (url) => {
+  return API.fetchNotes(url);
 });
 
 export const fetchNoteById = createAsyncThunk(
   "notes/getNoteById",
   async (id) => {
-    const url = `http://localhost:5000/api/note/${id}`;
-    const res = await axios.get(url);
-    return res.data.data;
+    return API.fetchNoteById(id);
   }
 );
 
 export const addNote = createAsyncThunk("notes/addNote", async (data) => {
-  const url = `http://localhost:5000/api/note`;
-  const res = await axios.post(url, data);
-  return res.data.data;
+  return API.addNote(data);
 });
 
 export const notesSlice = createSlice({

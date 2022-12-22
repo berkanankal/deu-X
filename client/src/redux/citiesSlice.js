@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as API from "./api/cities";
 
-export const fetchCities = createAsyncThunk("cities/getAllCities", async () => {
-  const res = await axios.get("http://localhost:5000/api/city");
-  return res.data.data;
+export const fetchCities = createAsyncThunk("cities/getAllCities", () => {
+  return API.fetchCities();
 });
 
 export const citiesSlice = createSlice({

@@ -1,29 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as API from "./api/housemates";
 
 export const fetchHousemates = createAsyncThunk(
   "housemates/getAllHousemates ",
-  async (url) => {
-    const res = await axios.get(url);
-    return res.data.data;
+  (url) => {
+    return API.fetchHousemates(url);
   }
 );
 
 export const fetchHousemateById = createAsyncThunk(
   "housemates/getHousemateById",
-  async (id) => {
-    const url = `http://localhost:5000/api/housemate/${id}`;
-    const res = await axios.get(url);
-    return res.data.data;
+  (id) => {
+    return API.fetchHousemateById(id);
   }
 );
 
 export const addHousemate = createAsyncThunk(
   "housemates/addHousemate",
-  async (data) => {
-    const url = `http://localhost:5000/api/housemate`;
-    const res = await axios.post(url, data);
-    return res.data.data;
+  (data) => {
+    return API.addHousemate(data);
   }
 );
 

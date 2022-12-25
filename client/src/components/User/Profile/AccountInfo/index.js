@@ -1,18 +1,7 @@
-import { useEffect, useState } from "react";
-import {
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Button,
-  Grid,
-  Box,
-} from "@mui/material";
+import { useSelector } from "react-redux";
+import { TextField, Button, Grid, Box } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 
 let registerSchema = yup.object().shape({
   name: yup.string().required("Zorunlu alan"),
@@ -24,21 +13,15 @@ let registerSchema = yup.object().shape({
 });
 
 const AccountInfo = () => {
-  const navigate = useNavigate();
-
-  const toastSettings = {
-    position: "bottom-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  };
+  const { user } = useSelector((state) => state.auth);
 
   const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
     useFormik({
-      initialValues: JSON.parse(localStorage.getItem("user")),
+      initialValues: {
+        name: user?.name,
+        surname: user?.surname,
+        email: user?.email,
+      },
       validationSchema: registerSchema,
       onSubmit: (values) => {
         console.log(values);

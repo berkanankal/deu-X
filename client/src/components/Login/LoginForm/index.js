@@ -8,12 +8,10 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../../redux/authSlice";
 import { Link } from "react-router-dom";
+import { login } from "../../../redux/authSlice";
 
 let loginSchema = yup.object().shape({
   email: yup
@@ -22,16 +20,6 @@ let loginSchema = yup.object().shape({
     .email("Lütfen geçerli bir mail adresi giriniz"),
   password: yup.string().required("Zorunlu alan"),
 });
-
-const toastSettings = {
-  position: "bottom-right",
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-};
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -45,21 +33,7 @@ const LoginForm = () => {
       },
       validationSchema: loginSchema,
       onSubmit: (values) => {
-        axios
-          .post("http://localhost:5000/api/auth/login", values)
-          .then((res) => {
-            if (res.data.success) {
-              localStorage.setItem("user", JSON.stringify(res.data.user));
-              toast.success("Giriş başarılı!", toastSettings);
-              dispatch(setUser());
-              navigate("/");
-            }
-          })
-          .catch((err) => {
-            if (err.response.status === 400) {
-              toast.error("Email veya parola yanlış!", toastSettings);
-            }
-          });
+        dispatch(login(values));
       },
     }
   );

@@ -13,8 +13,8 @@ import University from "./components/Admin/Dashboard/University";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "./redux/authSlice";
+import { useSelector } from "react-redux";
+
 import Housemates from "./components/User/Housemates";
 import NoteDetails from "./components/User/Notes/NoteDetails";
 import BookDetails from "./components/User/Books/BookDetails";
@@ -34,12 +34,7 @@ import FriendsToMyHouse from "./components/User/Profile/MyHousemateAds/AddHousem
 import PlaceToStay from "./components/User/Profile/MyHousemateAds/AddHousemateForm/PlaceToStay";
 
 const App = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-
-  useEffect(() => {
-    dispatch(setUser());
-  }, [dispatch]);
 
   return (
     <>

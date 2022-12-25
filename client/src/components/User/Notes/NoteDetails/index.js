@@ -31,7 +31,7 @@ const NoteDetails = () => {
             <Grid item xs={3}>
               <CardMedia
                 component="img"
-                src={`http://localhost:5000/uploads/notes/${note.data.note_image}`}
+                src={`https://uni-x-backend.onrender.com/uploads/notes/${note.data.note_image}`}
                 alt="note_image"
               />
             </Grid>

@@ -17,6 +17,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { register } from "../../../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 let registerSchema = yup.object().shape({
   name: yup.string().required("Zorunlu alan"),
@@ -43,6 +45,7 @@ let registerSchema = yup.object().shape({
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toastSettings = {
     position: "bottom-right",
@@ -67,15 +70,11 @@ const RegisterForm = () => {
       },
       validationSchema: registerSchema,
       onSubmit: (values) => {
-        axios
-          .post("http://localhost:5000/api/auth/register", values)
-          .then(() => {
+        dispatch(register(values)).then((res) => {
+          if (res.payload.data.success) {
             navigate("/login");
-            toast.success("Kayıt Başarılı!", toastSettings);
-          })
-          .catch((err) => {
-            toast.error("Bu email adresi zaten kayıtlı!", toastSettings);
-          });
+          }
+        });
       },
     }
   );
@@ -210,7 +209,7 @@ const RegisterForm = () => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2, py:1 }}
+          sx={{ mt: 3, mb: 2, py: 1 }}
         >
           Kayıt ol
         </Button>

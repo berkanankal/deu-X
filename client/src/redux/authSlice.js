@@ -1,4 +1,44 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+import * as API from "./api/auth";
+
+const toastSettings = {
+  position: "bottom-right",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+};
+
+export const login = createAsyncThunk("auth/login", (data, thunkAPI) => {
+  return API.login(data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      if (!err.response) {
+        throw err;
+      }
+
+      return thunkAPI.rejectWithValue(err.response.data);
+    });
+});
+
+export const register = createAsyncThunk("auth/register", (data, thunkAPI) => {
+  return API.register(data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      if (!err.response) {
+        throw err;
+      }
+
+      return thunkAPI.rejectWithValue(err.response.data);
+    });
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -6,18 +46,41 @@ export const authSlice = createSlice({
     user: null,
   },
   reducers: {
-    setUser: (state) => {
-      if (localStorage.getItem("user")) {
-        state.user = JSON.parse(localStorage.getItem("user"));
+    logout: (state) => {
+      state.user = null;
+    },
+  },
+  extraReducers: {
+    // Login
+    [login.fulfilled]: (state, action) => {
+      if (action.payload.data.success) {
+        state.user = action.payload.data.user;
+        toast.success("Giriş başarılı!", toastSettings);
       }
     },
-    logout: (state) => {
-      localStorage.removeItem("user");
-      state.user = null;
+    [login.rejected]: (state, action) => {
+      if (action.payload.message === "Please check your credentials") {
+        toast.error("Email veya parola yanlış!", toastSettings);
+      }
+    },
+    // Register
+    [register.fulfilled]: (state, action) => {
+      console.log(action);
+      if (action.payload.data.success) {
+        toast.success("Kayıt başarılı!", toastSettings);
+      }
+    },
+    [register.rejected]: (state, action) => {
+      console.log(action);
+      if (
+        action.payload.message === "Duplicate Key Error: Please Check Your Info"
+      ) {
+        toast.error("Bu email adresi zaten kayıtlı!", toastSettings);
+      }
     },
   },
 });
 
-export const { setUser, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

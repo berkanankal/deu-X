@@ -23,7 +23,7 @@ const Books = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    let url = `http://localhost:5000/api/book`;
+    let url = `/book`;
 
     if (selectedItems.selectedCity) {
       url = `${url}?city=${selectedItems.selectedCity}`;

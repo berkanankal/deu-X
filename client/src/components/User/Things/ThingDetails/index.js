@@ -33,7 +33,7 @@ const ThingDetails = () => {
             <Grid item xs={3}>
               <CardMedia
                 component="img"
-                src={`http://localhost:5000/uploads/things/${thing.data.thing_image}`}
+                src={`https://uni-x-backend.onrender.com/uploads/things/${thing.data.thing_image}`}
                 alt="thing_image"
               />
             </Grid>

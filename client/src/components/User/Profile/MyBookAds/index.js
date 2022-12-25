@@ -15,7 +15,7 @@ const MyBookAds = () => {
 
   useEffect(() => {
     if (books.status === "idle") {
-      const url = "http://localhost:5000/api/book";
+      const url = "/book";
       dispatch(fetchBooks(url));
     }
   }, [dispatch, books.status]);

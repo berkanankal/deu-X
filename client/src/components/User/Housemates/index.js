@@ -21,7 +21,7 @@ const Housemates = () => {
   });
 
   useEffect(() => {
-    let url = `http://localhost:5000/api/housemate`;
+    let url = `/housemate`;
 
     if (selectedItems.selectedCity) {
       url = `${url}?city=${selectedItems.selectedCity}`;

@@ -15,7 +15,7 @@ const MyThingAds = () => {
 
   useEffect(() => {
     if (things.status === "idle") {
-      const url = "http://localhost:5000/api/thing";
+      const url = "/thing";
       dispatch(fetchThings(url));
     }
   }, [dispatch, things.status]);

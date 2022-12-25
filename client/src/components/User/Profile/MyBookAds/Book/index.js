@@ -18,7 +18,7 @@ const Book = ({ book }) => {
         <Grid item xs={3}>
           <CardMedia
             component="img"
-            src={`http://localhost:5000/uploads/books/${book.book_image}`}
+            src={`https://uni-x-backend.onrender.com/uploads/books/${book.book_image}`}
             alt="book_image"
             height={250}
           />

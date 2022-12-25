@@ -16,7 +16,7 @@ const MyNoteAds = () => {
 
   useEffect(() => {
     if (notes.status === "idle") {
-      const url = `http://localhost:5000/api/note`;
+      const url = `/note`;
       dispatch(fetchNotes(url));
     }
   }, [dispatch, notes.status]);

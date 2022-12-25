@@ -19,7 +19,7 @@ const MyHousemateAds = () => {
 
   useEffect(() => {
     if (housemates.status === "idle") {
-      const url = "http://localhost:5000/api/housemate";
+      const url = "/housemate";
       dispatch(fetchHousemates(url));
     }
   }, [dispatch, housemates.status]);

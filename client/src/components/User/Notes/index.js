@@ -25,7 +25,7 @@ const Notes = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    let url = `http://localhost:5000/api/note`;
+    let url = `/note`;
 
     if (selectedItems.selectedCity) {
       url = `${url}?city=${selectedItems.selectedCity}`;

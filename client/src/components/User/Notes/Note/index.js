@@ -14,7 +14,7 @@ const Note = ({ note }) => {
     <Card>
       <CardMedia
         component="img"
-        src={`http://localhost:5000/uploads/notes/${note.note_image}`}
+        src={`https://uni-x-backend.onrender.com/uploads/notes/${note.note_image}`}
         alt="note_image"
       />
       <CardContent>

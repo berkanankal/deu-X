@@ -23,7 +23,7 @@ const Things = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    let url = `http://localhost:5000/api/thing`;
+    let url = `/thing`;
 
     if (selectedItems.selectedCity) {
       url = `${url}?city=${selectedItems.selectedCity}`;

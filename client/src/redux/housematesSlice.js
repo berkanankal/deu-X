@@ -64,7 +64,6 @@ export const housematesSlice = createSlice({
     },
     // Add Housemate
     [addHousemate.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.housemates.data.push(action.payload);
     },
   },

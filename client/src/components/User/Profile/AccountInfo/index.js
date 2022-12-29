@@ -23,9 +23,7 @@ const AccountInfo = () => {
         email: user?.email,
       },
       validationSchema: registerSchema,
-      onSubmit: (values) => {
-        console.log(values);
-      },
+      onSubmit: (values) => {},
     });
 
   return (

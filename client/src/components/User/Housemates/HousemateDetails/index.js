@@ -11,8 +11,6 @@ const HousemateDetails = () => {
 
   const { housemate } = useSelector((state) => state.housemates);
 
-  console.log(housemate);
-
   useEffect(() => {
     dispatch(fetchHousemateById(id));
   }, [dispatch, id]);

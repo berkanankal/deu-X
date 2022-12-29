@@ -3,8 +3,6 @@ const CustomError = require("../../helpers/error/CustomError");
 const customErrorHandler = (err, req, res, next) => {
   let customErr = err;
 
-  console.log(customErr);
-
   if (err.code === 11000) {
     customErr = new CustomError(
       "Duplicate Key Error: Please Check Your Info",

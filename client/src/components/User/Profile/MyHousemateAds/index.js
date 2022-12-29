@@ -11,8 +11,6 @@ const MyHousemateAds = () => {
   const { housemates } = useSelector((state) => state.housemates);
   const user = useSelector((state) => state.auth.user);
 
-  console.log(housemates);
-
   const filteredHousemates = housemates.data.filter(
     (housemate) => housemate.user._id === user.id
   );

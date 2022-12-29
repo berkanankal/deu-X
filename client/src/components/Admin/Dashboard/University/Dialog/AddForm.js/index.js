@@ -18,8 +18,6 @@ const AddForm = () => {
     selectedDistrict: "",
   });
 
-  console.log(formData);
-
   const onChangeSelectInput = (e) => {
     setFormData({
       ...formData,

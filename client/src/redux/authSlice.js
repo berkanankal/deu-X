@@ -65,13 +65,11 @@ export const authSlice = createSlice({
     },
     // Register
     [register.fulfilled]: (state, action) => {
-      console.log(action);
       if (action.payload.data.success) {
         toast.success("Kayıt başarılı!", toastSettings);
       }
     },
     [register.rejected]: (state, action) => {
-      console.log(action);
       if (
         action.payload.message === "Duplicate Key Error: Please Check Your Info"
       ) {

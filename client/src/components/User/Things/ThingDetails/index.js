@@ -22,8 +22,6 @@ const ThingDetails = () => {
     dispatch(fetchThingById(id));
   }, [dispatch, id]);
 
-  console.log(thing);
-
   return (
     <>
       {thing.status === "loading" && <Loading />}

@@ -1,11 +1,9 @@
-import { useEffect } from "react";
-import "./App.css";
+
 import User from "./components/User";
 import Dashboard from "./components/Admin/Dashboard";
 import Notes from "./components/User/Notes";
 import Books from "./components/User/Books";
 import Things from "./components/User/Things";
-import UserHome from "./components/User/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import DashboardHome from "./components/Admin/Dashboard/Home";
